@@ -1,0 +1,218 @@
+============================================
+ГОТОВЫЙ КОД ДЛЯ ВСТАВКИ НА САЙТ (TILDA)
+============================================
+
+ВАРИАНТ 1: Вставка через iframe (рекомендуется)
+------------------------------------------------
+Вставьте этот код в блок HTML на вашем сайте:
+
+<iframe 
+    src="https://ваш-домен.com/embed.html" 
+    width="100%" 
+    height="800" 
+    frameborder="0" 
+    style="border: none; max-width: 500px; margin: 0 auto; display: block;"
+></iframe>
+
+
+ВАРИАНТ 2: Прямая вставка кода (inline)
+-----------------------------------------
+Скопируйте весь код из файла embed.html и вставьте в блок T123 (HTML-код) в Tilda
+
+
+ВАРИАНТ 3: Встроенный виджет для Tilda
+----------------------------------------
+1. В Tilda добавьте блок T123 (HTML-код)
+2. Вставьте следующий код:
+
+<div id="loan-calculator-widget"></div>
+<style>
+* {box-sizing: border-box;}
+#loan-calculator-widget {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 2rem;
+    border-radius: 1rem;
+}
+.loan-calc {
+    background: white;
+    border-radius: 2rem;
+    padding: 2rem;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    max-width: 28rem;
+    margin: 0 auto;
+}
+.loan-calc h1, .loan-calc h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    text-align: center;
+    color: #1a202c;
+    margin: 0;
+}
+.loan-calc h1 {font-size: 1.875rem; margin-bottom: 0.25rem;}
+.loan-calc h2 {font-size: 1.875rem; margin-bottom: 2rem;}
+.highlight {color: #667eea;}
+.input-group {margin-bottom: 2rem;}
+.label {display: block; font-size: 1.125rem; font-weight: 500; color: #2d3748; margin-bottom: 0.75rem;}
+.value-display {font-size: 2.25rem; font-weight: 700; color: #1a202c; margin-bottom: 1rem;}
+input[type="range"] {
+    width: 100%;
+    height: 8px;
+    border-radius: 5px;
+    background: #e2e8f0;
+    outline: none;
+    -webkit-appearance: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #667eea;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(102,126,234,0.4);
+}
+.range-labels {display: flex; justify-content: space-between; font-size: 0.875rem; color: #718096; margin-top: 0.5rem;}
+.term-header {display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;}
+.promo-badge {color: #667eea; font-size: 0.875rem; font-weight: 600;}
+.result-display {display: flex; align-items: baseline; gap: 0.75rem; flex-wrap: wrap;}
+.old-price {font-size: 1.25rem; color: #a0aec0; text-decoration: line-through;}
+.new-price {font-size: 2.25rem; font-weight: 700; color: #667eea;}
+.date-display {font-size: 1.5rem; font-weight: 700; color: #1a202c;}
+.submit-btn {
+    width: 100%;
+    height: 4rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: white;
+    background: #667eea;
+    border: none;
+    border-radius: 9999px;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(102,126,234,0.3);
+    transition: all 0.2s;
+}
+.submit-btn:hover {background: #5a67d8; transform: translateY(-2px);}
+@media (max-width: 640px) {
+    .loan-calc {padding: 1.5rem;}
+    .loan-calc h1, .loan-calc h2 {font-size: 1.5rem;}
+    .value-display, .new-price {font-size: 1.875rem;}
+}
+</style>
+
+<div class="loan-calc">
+    <h1>ПОЛУЧИ ЗАЙМ</h1>
+    <h2>НА КАРТУ <span class="highlight">ЗА 10 МИН</span></h2>
+    
+    <div class="input-group">
+        <label class="label">Сумма</label>
+        <div class="value-display" id="amtDisp">10 000 ₽</div>
+        <input type="range" id="amtSlider" min="1000" max="100000" step="1000" value="10000">
+        <div class="range-labels"><span>1 000 ₽</span><span>100 000 ₽</span></div>
+    </div>
+    
+    <div class="input-group">
+        <label class="label">Срок</label>
+        <div class="term-header">
+            <div class="value-display" id="dayDisp">7 дней</div>
+            <div class="promo-badge" id="promo">ДО 7 ДНЕЙ БЕЗ %</div>
+        </div>
+        <input type="range" id="daySlider" min="1" max="365" value="7">
+        <div class="range-labels"><span>1 день</span><span>365 дней</span></div>
+    </div>
+    
+    <div class="input-group">
+        <label class="label">Вы возвращаете:</label>
+        <div class="result-display">
+            <div class="old-price" id="oldP" style="display:none;">10 560 ₽</div>
+            <div class="new-price" id="newP">10 000 ₽*</div>
+        </div>
+    </div>
+    
+    <div class="input-group">
+        <label class="label">До (включительно):</label>
+        <div class="date-display" id="dateDisp">18.02.2026</div>
+    </div>
+    
+    <button class="submit-btn" onclick="submit()">Получить деньги</button>
+</div>
+
+<script>
+const amtS = document.getElementById('amtSlider');
+const dayS = document.getElementById('daySlider');
+const amtD = document.getElementById('amtDisp');
+const dayD = document.getElementById('dayDisp');
+const promo = document.getElementById('promo');
+const oldP = document.getElementById('oldP');
+const newP = document.getElementById('newP');
+const dateD = document.getElementById('dateDisp');
+
+function fmt(n) {return n.toLocaleString('ru-RU');}
+function dayW(d) {return d===1?'день':d<=4?'дня':'дней';}
+function fmtDate(d) {
+    const day = String(d.getDate()).padStart(2,'0');
+    const mon = String(d.getMonth()+1).padStart(2,'0');
+    return `${day}.${mon}.${d.getFullYear()}`;
+}
+
+function calc() {
+    const amt = parseInt(amtS.value);
+    const day = parseInt(dayS.value);
+    amtD.textContent = `${fmt(amt)} ₽`;
+    dayD.textContent = `${day} ${dayW(day)}`;
+    promo.style.display = day<=7 ? 'block' : 'none';
+    
+    const rate = day<=7 ? 0 : 1;
+    const comm = 560;
+    const total = amt + (amt*rate/100) + (rate===0?0:comm);
+    
+    if(rate>0) {
+        oldP.style.display = 'block';
+        oldP.textContent = `${fmt(amt+comm)} ₽`;
+        newP.textContent = `${fmt(total)} ₽`;
+    } else {
+        oldP.style.display = 'none';
+        newP.textContent = `${fmt(total)} ₽*`;
+    }
+    
+    const rd = new Date();
+    rd.setDate(rd.getDate()+day);
+    dateD.textContent = fmtDate(rd);
+}
+
+function submit() {
+    alert(`Заявка на займ:\nСумма: ${amtS.value} ₽\nСрок: ${dayS.value} дней`);
+}
+
+amtS.addEventListener('input', calc);
+dayS.addEventListener('input', calc);
+calc();
+</script>
+
+
+ИНСТРУКЦИЯ ПО УСТАНОВКЕ:
+=========================
+
+1. Откройте редактор вашего сайта Tilda
+2. Добавьте блок T123 (HTML-код) в нужное место страницы
+3. Скопируйте код из ВАРИАНТА 3 выше
+4. Вставьте код в редактор блока T123
+5. Сохраните и опубликуйте страницу
+
+Калькулятор будет работать автономно, без внешних зависимостей!
+
+
+НАСТРОЙКА:
+==========
+
+Чтобы изменить цвета, найдите в коде эти значения:
+- background: #667eea - основной синий цвет
+- background: #764ba2 - фиолетовый градиент
+- color: #667eea - цвет акцентов
+
+Чтобы изменить диапазоны:
+- min="1000" max="100000" - диапазон суммы
+- min="1" max="365" - диапазон срока
+
+Чтобы настроить кнопку "Получить деньги":
+Замените функцию submit() на свой код (отправка формы, переход по ссылке и т.д.)

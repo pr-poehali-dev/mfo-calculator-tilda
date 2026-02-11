@@ -97,7 +97,7 @@ const Index = () => {
                     {(amount + commission).toLocaleString('ru-RU')} ₽
                   </div>
                 )}
-                <div className="text-3xl sm:text-4xl font-bold text-green-600">
+                <div className="text-3xl sm:text-4xl font-bold text-primary">
                   {totalRepayment.toLocaleString('ru-RU')} ₽
                   {interestRate === 0 && <span className="text-base sm:text-lg">*</span>}
                 </div>
