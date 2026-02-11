@@ -23,26 +23,26 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4">
-      <div className="w-full max-w-md bg-card rounded-[2.5rem] p-8 shadow-2xl relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-32 h-32 opacity-20">
-          <div className="text-6xl">🌿</div>
+    <div className="min-h-screen bg-background flex items-center justify-center p-3 sm:p-4">
+      <div className="w-full max-w-md bg-card rounded-[2rem] sm:rounded-[2.5rem] p-6 sm:p-8 shadow-2xl relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-24 h-24 sm:w-32 sm:h-32 opacity-20">
+          <div className="text-5xl sm:text-6xl">🌿</div>
         </div>
 
         <div className="relative z-10">
-          <h1 className="text-3xl md:text-4xl font-bold text-center mb-2 text-card-foreground">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-1 sm:mb-2 text-card-foreground">
             ПОЛУЧИ ЗАЙМ
           </h1>
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-card-foreground">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-6 sm:mb-8 text-card-foreground">
             НА КАРТУ <span className="text-primary">ЗА 10 МИН</span>
           </h2>
 
-          <div className="space-y-8">
+          <div className="space-y-6 sm:space-y-8">
             <div>
-              <label className="block text-lg font-medium text-card-foreground mb-3">
+              <label className="block text-base sm:text-lg font-medium text-card-foreground mb-2 sm:mb-3">
                 Сумма
               </label>
-              <div className="text-4xl font-bold text-card-foreground mb-4">
+              <div className="text-3xl sm:text-4xl font-bold text-card-foreground mb-3 sm:mb-4">
                 {amount.toLocaleString('ru-RU')} ₽
               </div>
               <Slider
@@ -53,22 +53,22 @@ const Index = () => {
                 step={1000}
                 className="mb-2"
               />
-              <div className="flex justify-between text-sm text-muted-foreground">
+              <div className="flex justify-between text-xs sm:text-sm text-muted-foreground">
                 <span>{minAmount.toLocaleString('ru-RU')} ₽</span>
                 <span>{maxAmount.toLocaleString('ru-RU')} ₽</span>
               </div>
             </div>
 
             <div>
-              <label className="block text-lg font-medium text-card-foreground mb-3">
+              <label className="block text-base sm:text-lg font-medium text-card-foreground mb-2 sm:mb-3">
                 Срок
               </label>
-              <div className="flex justify-between items-center mb-4">
-                <div className="text-4xl font-bold text-card-foreground">
+              <div className="flex justify-between items-center mb-3 sm:mb-4">
+                <div className="text-3xl sm:text-4xl font-bold text-card-foreground">
                   {days} {days === 1 ? 'день' : days < 5 ? 'дня' : 'дней'}
                 </div>
                 {days <= 7 && (
-                  <div className="text-primary text-sm font-semibold">
+                  <div className="text-primary text-xs sm:text-sm font-semibold">
                     ДО 7 ДНЕЙ БЕЗ %
                   </div>
                 )}
@@ -81,41 +81,41 @@ const Index = () => {
                 step={1}
                 className="mb-2"
               />
-              <div className="flex justify-between text-sm text-muted-foreground">
+              <div className="flex justify-between text-xs sm:text-sm text-muted-foreground">
                 <span>{minDays} день</span>
                 <span>{maxDays} дней</span>
               </div>
             </div>
 
             <div>
-              <label className="block text-lg font-medium text-card-foreground mb-3">
+              <label className="block text-base sm:text-lg font-medium text-card-foreground mb-2 sm:mb-3">
                 Вы возвращаете:
               </label>
-              <div className="flex items-baseline gap-3">
+              <div className="flex items-baseline gap-2 sm:gap-3 flex-wrap">
                 {interestRate > 0 && (
-                  <div className="text-xl text-muted-foreground line-through">
+                  <div className="text-lg sm:text-xl text-muted-foreground line-through">
                     {(amount + commission).toLocaleString('ru-RU')} ₽
                   </div>
                 )}
-                <div className="text-4xl font-bold text-green-600">
+                <div className="text-3xl sm:text-4xl font-bold text-green-600">
                   {totalRepayment.toLocaleString('ru-RU')} ₽
-                  {interestRate === 0 && <span className="text-lg">*</span>}
+                  {interestRate === 0 && <span className="text-base sm:text-lg">*</span>}
                 </div>
               </div>
             </div>
 
             <div>
-              <label className="block text-lg font-medium text-card-foreground mb-2">
+              <label className="block text-base sm:text-lg font-medium text-card-foreground mb-1 sm:mb-2">
                 До (включительно):
               </label>
-              <div className="text-2xl font-bold text-card-foreground">
+              <div className="text-xl sm:text-2xl font-bold text-card-foreground">
                 {formatDate(repaymentDate)}
               </div>
             </div>
 
             <Button 
               size="lg"
-              className="w-full h-16 text-xl font-bold rounded-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-200"
+              className="w-full h-14 sm:h-16 text-lg sm:text-xl font-bold rounded-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-200"
             >
               Получить деньги
             </Button>
