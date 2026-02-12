@@ -15,12 +15,18 @@
 
         body {
             font-family: "Roboto", sans-serif;
-            background: hsl(217, 91%, 60%);
+            background: white;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 12px;
+        }
+
+        @media (min-width: 641px) {
+            body {
+                background: hsl(217, 91%, 60%);
+            }
         }
 
         h1, h2, h3 {

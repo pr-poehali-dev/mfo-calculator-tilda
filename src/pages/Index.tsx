@@ -30,7 +30,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-2 sm:p-4">
+    <div className="min-h-screen bg-white sm:bg-background flex items-center justify-center p-2 sm:p-4">
       <div className="w-full max-w-md bg-card rounded-[1.5rem] sm:rounded-[2.5rem] p-4 sm:p-8 shadow-2xl relative overflow-hidden">
         <div className="absolute top-0 left-0 w-16 h-16 sm:w-32 sm:h-32 opacity-20">
           <div className="text-3xl sm:text-6xl">🌿</div>
