@@ -31,18 +31,15 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-white sm:bg-background flex items-center justify-center p-2 sm:p-4">
-      <div className="w-full max-w-md bg-card rounded-[1.5rem] sm:rounded-[2.5rem] p-4 sm:p-8 shadow-2xl relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-16 h-16 sm:w-32 sm:h-32 opacity-20">
-          <div className="text-3xl sm:text-6xl">🌿</div>
-        </div>
+      <div className="w-full max-w-md bg-card rounded-[1.5rem] sm:rounded-[2.5rem] p-4 sm:p-8 shadow-2xl">
+        <h1 className="text-xl sm:text-3xl md:text-4xl font-bold text-center mb-1 sm:mb-2 text-card-foreground">
+          ПОЛУЧИ ЗАЙМ
+        </h1>
+        <h2 className="text-xl sm:text-3xl md:text-4xl font-bold text-center mb-4 sm:mb-8 text-card-foreground">
+          НА КАРТУ <span className="text-primary">ЗА 10 МИН</span>
+        </h2>
 
-        <div className="relative z-10">
-          <h1 className="text-xl sm:text-3xl md:text-4xl font-bold text-center mb-1 sm:mb-2 text-card-foreground">
-            ПОЛУЧИ ЗАЙМ
-          </h1>
-          <h2 className="text-xl sm:text-3xl md:text-4xl font-bold text-center mb-4 sm:mb-8 text-card-foreground">
-            НА КАРТУ <span className="text-primary">ЗА 10 МИН</span>
-          </h2>
+        <div className="space-y-4 sm:space-y-8">
 
           <div className="space-y-4 sm:space-y-8">
             <div>
@@ -173,7 +170,6 @@ const Index = () => {
               </div>
             </div>
           </div>
-        </div>
       </div>
     </div>
   );
