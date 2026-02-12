@@ -117,6 +117,19 @@
             cursor: grab;
             box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3);
             transition: all 0.3s;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slider::-webkit-slider-thumb::before {
+            content: '🌿';
+            font-size: 10px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
         }
 
         .slider::-webkit-slider-thumb:hover {
@@ -137,6 +150,7 @@
             cursor: grab;
             box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3);
             transition: all 0.3s;
+            position: relative;
         }
 
         .slider::-moz-range-thumb:hover {
@@ -260,7 +274,7 @@
             <div class="section">
                 <label class="label">Сумма</label>
                 <div class="value-display" id="amountDisplay">10 000 ₽</div>
-                <div class="slider-container">
+                <div class="slider-container" style="position: relative;">
                     <input 
                         type="range" 
                         class="slider" 
@@ -270,6 +284,7 @@
                         step="1000" 
                         value="10000"
                     >
+                    <div id="amountLeaf" style="position: absolute; top: 0; left: 0; pointer-events: none; font-size: 10px; transition: left 0.1s;">🌿</div>
                 </div>
                 <div class="slider-labels">
                     <span>1 000 ₽</span>
@@ -283,7 +298,7 @@
                     <div class="value-display" id="daysDisplay">7 дней</div>
                     <div class="badge" id="badge">ДО 7 ДНЕЙ БЕЗ %</div>
                 </div>
-                <div class="slider-container">
+                <div class="slider-container" style="position: relative;">
                     <input 
                         type="range" 
                         class="slider" 
@@ -293,6 +308,7 @@
                         step="1" 
                         value="7"
                     >
+                    <div id="daysLeaf" style="position: absolute; top: 0; left: 0; pointer-events: none; font-size: 10px; transition: left 0.1s;">🌿</div>
                 </div>
                 <div class="slider-labels">
                     <span>1 день</span>
@@ -325,8 +341,19 @@
         const repaymentDate = document.getElementById('repaymentDate');
         const badge = document.getElementById('badge');
         const repaymentWrapper = document.getElementById('repaymentWrapper');
+        const amountLeaf = document.getElementById('amountLeaf');
+        const daysLeaf = document.getElementById('daysLeaf');
 
         const commission = 560;
+
+        function updateLeafPosition(slider, leaf) {
+            const percent = (slider.value - slider.min) / (slider.max - slider.min);
+            const sliderWidth = slider.offsetWidth;
+            const thumbWidth = 28;
+            const position = percent * (sliderWidth - thumbWidth) + thumbWidth / 2 - 5;
+            leaf.style.left = position + 'px';
+            leaf.style.top = '-2px';
+        }
 
         function formatNumber(num) {
             return num.toLocaleString('ru-RU');
@@ -358,6 +385,9 @@
             amountDisplay.textContent = `${formatNumber(amount)} ₽`;
             daysDisplay.textContent = `${days} ${getDaysWord(days)}`;
             repaymentDate.textContent = formatDate(date);
+
+            updateLeafPosition(amountSlider, amountLeaf);
+            updateLeafPosition(daysSlider, daysLeaf);
 
             if (days <= 7) {
                 badge.style.display = 'block';
