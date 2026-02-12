@@ -117,6 +117,7 @@ const Index = () => {
             <Button 
               size="lg"
               className="w-full h-14 sm:h-16 text-lg sm:text-xl font-bold rounded-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-200"
+              onClick={() => window.open('https://tuchkafinance.ru/applicationform', '_blank')}
             >
               Получить деньги
             </Button>
