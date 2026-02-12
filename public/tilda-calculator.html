@@ -358,9 +358,20 @@
             return `${day}.${month}.${year}`;
         }
 
+        function updateSliderProgress(slider) {
+            const min = slider.min || 0;
+            const max = slider.max || 100;
+            const value = slider.value;
+            const percentage = ((value - min) / (max - min)) * 100;
+            slider.style.background = `linear-gradient(to right, hsl(217, 91%, 60%) 0%, hsl(217, 91%, 60%) ${percentage}%, hsla(217, 91%, 60%, 0.2) ${percentage}%, hsla(217, 91%, 60%, 0.2) 100%)`;
+        }
+
         function updateCalculator() {
             const amount = parseInt(amountSlider.value);
             const days = parseInt(daysSlider.value);
+            
+            updateSliderProgress(amountSlider);
+            updateSliderProgress(daysSlider);
             
             let interestRate = 0;
             if (days > 7 && days <= 35) {
