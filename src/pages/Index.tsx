@@ -32,19 +32,19 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-white sm:bg-background flex items-center justify-center p-2 sm:p-4">
       <div className="w-full max-w-md bg-card rounded-[1.5rem] sm:rounded-[2.5rem] p-4 sm:p-8 shadow-2xl">
-        <h1 className="text-xl sm:text-3xl md:text-4xl font-bold text-center mb-1 sm:mb-2 text-card-foreground">
+        <h1 className="text-xl sm:text-3xl md:text-4xl font-bold text-center mb-1 text-card-foreground">
           ПОЛУЧИ ЗАЙМ
         </h1>
-        <h2 className="text-xl sm:text-3xl md:text-4xl font-bold text-center mb-4 sm:mb-8 text-card-foreground">
+        <h2 className="text-xl sm:text-3xl md:text-4xl font-bold text-center mb-3 sm:mb-6 text-card-foreground">
           НА КАРТУ <span className="text-primary">ЗА 10 МИН</span>
         </h2>
 
-        <div className="space-y-4 sm:space-y-8">
+        <div className="space-y-3 sm:space-y-6">
           <div>
-            <label className="block text-sm sm:text-lg font-medium text-card-foreground mb-1 sm:mb-3">
+            <label className="block text-sm sm:text-lg font-medium text-card-foreground mb-1 sm:mb-2">
               Сумма
             </label>
-            <div className="text-2xl sm:text-4xl font-bold text-card-foreground mb-2 sm:mb-4">
+            <div className="text-2xl sm:text-4xl font-bold text-card-foreground mb-2 sm:mb-3">
               {amount.toLocaleString('ru-RU')} ₽
             </div>
             <Slider
@@ -62,10 +62,10 @@ const Index = () => {
           </div>
 
           <div>
-            <label className="block text-sm sm:text-lg font-medium text-card-foreground mb-1 sm:mb-3">
+            <label className="block text-sm sm:text-lg font-medium text-card-foreground mb-1 sm:mb-2">
               Срок
             </label>
-            <div className="flex justify-between items-center mb-2 sm:mb-4">
+            <div className="flex justify-between items-center mb-2 sm:mb-3">
               <div className="text-2xl sm:text-4xl font-bold text-card-foreground">
                 {days} {days === 1 ? 'день' : days < 5 ? 'дня' : 'дней'}
               </div>
@@ -95,7 +95,7 @@ const Index = () => {
           </div>
 
           <div>
-            <label className="block text-sm sm:text-lg font-medium text-card-foreground mb-1 sm:mb-3">
+            <label className="block text-sm sm:text-lg font-medium text-card-foreground mb-1 sm:mb-2">
               Вы возвращаете:
             </label>
             <div className="flex items-baseline gap-2 sm:gap-3 flex-wrap">
@@ -128,7 +128,7 @@ const Index = () => {
             Получить деньги
           </Button>
 
-          <div className="mt-6 sm:mt-8 p-4 sm:p-6 bg-muted/30 rounded-2xl border border-muted">
+          <div className="mt-4 sm:mt-6 p-3 sm:p-5 bg-muted/30 rounded-2xl border border-muted">
             <div className="flex items-center gap-2 mb-3">
               <Icon name="Code2" size={20} className="text-primary" />
               <h3 className="text-base sm:text-lg font-semibold text-card-foreground">Код для вашего сайта</h3>
