@@ -40,136 +40,134 @@ const Index = () => {
         </h2>
 
         <div className="space-y-4 sm:space-y-8">
-
-          <div className="space-y-4 sm:space-y-8">
-            <div>
-              <label className="block text-sm sm:text-lg font-medium text-card-foreground mb-1 sm:mb-3">
-                Сумма
-              </label>
-              <div className="text-2xl sm:text-4xl font-bold text-card-foreground mb-2 sm:mb-4">
-                {amount.toLocaleString('ru-RU')} ₽
-              </div>
-              <Slider
-                value={[amount]}
-                onValueChange={(value) => setAmount(value[0])}
-                min={minAmount}
-                max={maxAmount}
-                step={1000}
-                className="mb-2"
-              />
-              <div className="flex justify-between text-xs sm:text-sm text-muted-foreground">
-                <span>{minAmount.toLocaleString('ru-RU')} ₽</span>
-                <span>{maxAmount.toLocaleString('ru-RU')} ₽</span>
-              </div>
+          <div>
+            <label className="block text-sm sm:text-lg font-medium text-card-foreground mb-1 sm:mb-3">
+              Сумма
+            </label>
+            <div className="text-2xl sm:text-4xl font-bold text-card-foreground mb-2 sm:mb-4">
+              {amount.toLocaleString('ru-RU')} ₽
             </div>
+            <Slider
+              value={[amount]}
+              onValueChange={(value) => setAmount(value[0])}
+              min={minAmount}
+              max={maxAmount}
+              step={1000}
+              className="mb-2"
+            />
+            <div className="flex justify-between text-xs sm:text-sm text-muted-foreground">
+              <span>{minAmount.toLocaleString('ru-RU')} ₽</span>
+              <span>{maxAmount.toLocaleString('ru-RU')} ₽</span>
+            </div>
+          </div>
 
-            <div>
-              <label className="block text-sm sm:text-lg font-medium text-card-foreground mb-1 sm:mb-3">
-                Срок
-              </label>
-              <div className="flex justify-between items-center mb-2 sm:mb-4">
-                <div className="text-2xl sm:text-4xl font-bold text-card-foreground">
-                  {days} {days === 1 ? 'день' : days < 5 ? 'дня' : 'дней'}
+          <div>
+            <label className="block text-sm sm:text-lg font-medium text-card-foreground mb-1 sm:mb-3">
+              Срок
+            </label>
+            <div className="flex justify-between items-center mb-2 sm:mb-4">
+              <div className="text-2xl sm:text-4xl font-bold text-card-foreground">
+                {days} {days === 1 ? 'день' : days < 5 ? 'дня' : 'дней'}
+              </div>
+              {days <= 7 && (
+                <div className="text-primary text-[10px] sm:text-sm font-semibold">
+                  ДО 7 ДНЕЙ БЕЗ %
                 </div>
-                {days <= 7 && (
-                  <div className="text-primary text-[10px] sm:text-sm font-semibold">
-                    ДО 7 ДНЕЙ БЕЗ %
-                  </div>
-                )}
-                {days > 7 && days <= 35 && (
-                  <div className="text-primary text-[10px] sm:text-sm font-semibold">
-                    0.08% В ДЕНЬ
-                  </div>
-                )}
-              </div>
-              <Slider
-                value={[days]}
-                onValueChange={(value) => setDays(value[0])}
-                min={minDays}
-                max={maxDays}
-                step={1}
-                className="mb-2"
-              />
-              <div className="flex justify-between text-[10px] sm:text-sm text-muted-foreground">
-                <span>{minDays} день</span>
-                <span>{maxDays} дней</span>
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-sm sm:text-lg font-medium text-card-foreground mb-1 sm:mb-3">
-                Вы возвращаете:
-              </label>
-              <div className="flex items-baseline gap-2 sm:gap-3 flex-wrap">
-                {interestRate > 0 && (
-                  <div className="text-base sm:text-xl text-muted-foreground line-through">
-                    {(amount + commission).toLocaleString('ru-RU')} ₽
-                  </div>
-                )}
-                <div className="text-2xl sm:text-4xl font-bold text-primary">
-                  {totalRepayment.toLocaleString('ru-RU')} ₽
-                  {interestRate === 0 && <span className="text-base sm:text-lg">*</span>}
+              )}
+              {days > 7 && days <= 35 && (
+                <div className="text-primary text-[10px] sm:text-sm font-semibold">
+                  0.08% В ДЕНЬ
                 </div>
-              </div>
+              )}
             </div>
-
-            <div>
-              <label className="block text-sm sm:text-lg font-medium text-card-foreground mb-1 sm:mb-2">
-                До (включительно):
-              </label>
-              <div className="text-lg sm:text-2xl font-bold text-card-foreground">
-                {formatDate(repaymentDate)}
-              </div>
+            <Slider
+              value={[days]}
+              onValueChange={(value) => setDays(value[0])}
+              min={minDays}
+              max={maxDays}
+              step={1}
+              className="mb-2"
+            />
+            <div className="flex justify-between text-[10px] sm:text-sm text-muted-foreground">
+              <span>{minDays} день</span>
+              <span>{maxDays} дней</span>
             </div>
+          </div>
 
-            <Button 
-              size="lg"
-              className="w-full h-12 sm:h-16 text-base sm:text-xl font-bold rounded-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-200"
-              onClick={() => window.open('https://tuchkafinance.ru/applicationform', '_blank')}
-            >
-              Получить деньги
-            </Button>
-
-            <div className="mt-6 sm:mt-8 p-4 sm:p-6 bg-muted/30 rounded-2xl border border-muted">
-              <div className="flex items-center gap-2 mb-3">
-                <Icon name="Code2" size={20} className="text-primary" />
-                <h3 className="text-base sm:text-lg font-semibold text-card-foreground">Код для вашего сайта</h3>
-              </div>
-              <p className="text-xs sm:text-sm text-muted-foreground mb-3">
-                Скопируйте этот калькулятор на свой сайт или в Tilda
-              </p>
-              <div className="flex gap-2">
-                <Button 
-                  variant="outline"
-                  className="flex-1"
-                  onClick={async () => {
-                    try {
-                      const response = await fetch('/tilda-calculator.html');
-                      const htmlCode = await response.text();
-                      await navigator.clipboard.writeText(htmlCode);
-                      alert('Код скопирован в буфер обмена!');
-                    } catch (error) {
-                      console.error('Ошибка копирования:', error);
-                      window.open('/tilda-calculator.html', '_blank');
-                    }
-                  }}
-                >
-                  <Icon name="Copy" size={18} className="mr-2" />
-                  Скопировать код
-                </Button>
-                <Button 
-                  variant="outline"
-                  className="flex-1"
-                  onClick={() => {
-                    window.open('/tilda-calculator.html', '_blank');
-                  }}
-                >
-                  <Icon name="Eye" size={18} className="mr-2" />
-                  Просмотр
-                </Button>
+          <div>
+            <label className="block text-sm sm:text-lg font-medium text-card-foreground mb-1 sm:mb-3">
+              Вы возвращаете:
+            </label>
+            <div className="flex items-baseline gap-2 sm:gap-3 flex-wrap">
+              {interestRate > 0 && (
+                <div className="text-base sm:text-xl text-muted-foreground line-through">
+                  {(amount + commission).toLocaleString('ru-RU')} ₽
+                </div>
+              )}
+              <div className="text-2xl sm:text-4xl font-bold text-primary">
+                {totalRepayment.toLocaleString('ru-RU')} ₽
+                {interestRate === 0 && <span className="text-base sm:text-lg">*</span>}
               </div>
             </div>
           </div>
+
+          <div>
+            <label className="block text-sm sm:text-lg font-medium text-card-foreground mb-1 sm:mb-2">
+              До (включительно):
+            </label>
+            <div className="text-lg sm:text-2xl font-bold text-card-foreground">
+              {formatDate(repaymentDate)}
+            </div>
+          </div>
+
+          <Button 
+            size="lg"
+            className="w-full h-12 sm:h-16 text-base sm:text-xl font-bold rounded-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-200"
+            onClick={() => window.open('https://tuchkafinance.ru/applicationform', '_blank')}
+          >
+            Получить деньги
+          </Button>
+
+          <div className="mt-6 sm:mt-8 p-4 sm:p-6 bg-muted/30 rounded-2xl border border-muted">
+            <div className="flex items-center gap-2 mb-3">
+              <Icon name="Code2" size={20} className="text-primary" />
+              <h3 className="text-base sm:text-lg font-semibold text-card-foreground">Код для вашего сайта</h3>
+            </div>
+            <p className="text-xs sm:text-sm text-muted-foreground mb-3">
+              Скопируйте этот калькулятор на свой сайт или в Tilda
+            </p>
+            <div className="flex gap-2">
+              <Button 
+                variant="outline"
+                className="flex-1"
+                onClick={async () => {
+                  try {
+                    const response = await fetch('/tilda-calculator.html');
+                    const htmlCode = await response.text();
+                    await navigator.clipboard.writeText(htmlCode);
+                    alert('Код скопирован в буфер обмена!');
+                  } catch (error) {
+                    console.error('Ошибка копирования:', error);
+                    window.open('/tilda-calculator.html', '_blank');
+                  }
+                }}
+              >
+                <Icon name="Copy" size={18} className="mr-2" />
+                Скопировать код
+              </Button>
+              <Button 
+                variant="outline"
+                className="flex-1"
+                onClick={() => {
+                  window.open('/tilda-calculator.html', '_blank');
+                }}
+              >
+                <Icon name="Eye" size={18} className="mr-2" />
+                Просмотр
+              </Button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
