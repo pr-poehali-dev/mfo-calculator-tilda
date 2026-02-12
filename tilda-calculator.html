@@ -399,8 +399,14 @@
             const amount = parseInt(amountSlider.value);
             const days = parseInt(daysSlider.value);
             
-            const interestRate = days <= 7 ? 0 : 0.52;
-            const total = amount + (amount * interestRate / 100) + (interestRate === 0 ? 0 : commission);
+            let interestRate = 0;
+            if (days > 7 && days <= 35) {
+                interestRate = 0.08;
+            } else if (days > 35) {
+                interestRate = 0.52;
+            }
+
+            const total = amount + (amount * interestRate * days / 100) + (interestRate === 0 ? 0 : commission);
 
             const date = new Date();
             date.setDate(date.getDate() + days);
@@ -413,8 +419,17 @@
             updateLeafPosition(daysSlider, daysLeaf);
 
             if (days <= 7) {
+                badge.textContent = 'ДО 7 ДНЕЙ БЕЗ %';
                 badge.style.display = 'block';
                 repaymentWrapper.innerHTML = `<div class="repayment-value">${formatNumber(Math.round(total))} ₽*</div>`;
+            } else if (days <= 35) {
+                badge.textContent = '0.08% В ДЕНЬ';
+                badge.style.display = 'block';
+                const oldPrice = amount + commission;
+                repaymentWrapper.innerHTML = `
+                    <div class="old-price">${formatNumber(oldPrice)} ₽</div>
+                    <div class="repayment-value">${formatNumber(Math.round(total))} ₽</div>
+                `;
             } else {
                 badge.style.display = 'none';
                 const oldPrice = amount + commission;

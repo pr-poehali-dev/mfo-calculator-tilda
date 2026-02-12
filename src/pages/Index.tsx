@@ -12,9 +12,15 @@ const Index = () => {
   const minDays = 1;
   const maxDays = 365;
 
-  const interestRate = days <= 7 ? 0 : 0.52;
+  const getInterestRate = (days: number) => {
+    if (days <= 7) return 0;
+    if (days <= 35) return 0.08;
+    return 0.52;
+  };
+
+  const interestRate = getInterestRate(days);
   const commission = 560;
-  const totalRepayment = amount + (amount * interestRate / 100) + (interestRate === 0 ? 0 : commission);
+  const totalRepayment = amount + (amount * interestRate * days / 100) + (interestRate === 0 ? 0 : commission);
 
   const repaymentDate = new Date();
   repaymentDate.setDate(repaymentDate.getDate() + days);
@@ -71,6 +77,11 @@ const Index = () => {
                 {days <= 7 && (
                   <div className="text-primary text-[10px] sm:text-sm font-semibold">
                     ДО 7 ДНЕЙ БЕЗ %
+                  </div>
+                )}
+                {days > 7 && days <= 35 && (
+                  <div className="text-primary text-[10px] sm:text-sm font-semibold">
+                    0.08% В ДЕНЬ
                   </div>
                 )}
               </div>
