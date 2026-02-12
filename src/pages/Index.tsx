@@ -141,16 +141,36 @@ const Index = () => {
               <p className="text-xs sm:text-sm text-muted-foreground mb-3">
                 Скопируйте этот калькулятор на свой сайт или в Tilda
               </p>
-              <Button 
-                variant="outline"
-                className="w-full"
-                onClick={() => {
-                  window.open('/tilda-calculator.html', '_blank');
-                }}
-              >
-                <Icon name="Download" size={18} className="mr-2" />
-                Открыть HTML-код
-              </Button>
+              <div className="flex gap-2">
+                <Button 
+                  variant="outline"
+                  className="flex-1"
+                  onClick={async () => {
+                    try {
+                      const response = await fetch('/tilda-calculator.html');
+                      const htmlCode = await response.text();
+                      await navigator.clipboard.writeText(htmlCode);
+                      alert('Код скопирован в буфер обмена!');
+                    } catch (error) {
+                      console.error('Ошибка копирования:', error);
+                      window.open('/tilda-calculator.html', '_blank');
+                    }
+                  }}
+                >
+                  <Icon name="Copy" size={18} className="mr-2" />
+                  Скопировать код
+                </Button>
+                <Button 
+                  variant="outline"
+                  className="flex-1"
+                  onClick={() => {
+                    window.open('/tilda-calculator.html', '_blank');
+                  }}
+                >
+                  <Icon name="Eye" size={18} className="mr-2" />
+                  Просмотр
+                </Button>
+              </div>
             </div>
           </div>
         </div>
