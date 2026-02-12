@@ -11,7 +11,7 @@ const Index = () => {
   const minDays = 1;
   const maxDays = 365;
 
-  const interestRate = days <= 7 ? 0 : 1;
+  const interestRate = days <= 7 ? 0 : 0.52;
   const commission = 560;
   const totalRepayment = amount + (amount * interestRate / 100) + (interestRate === 0 ? 0 : commission);
 
