@@ -31,7 +31,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-white sm:bg-background flex items-center justify-center p-2 sm:p-4">
-      <div className="w-full max-w-md bg-card rounded-[1.5rem] sm:rounded-[2.5rem] p-4 sm:p-8 shadow-2xl">
+      <div className="w-full max-w-md bg-card rounded-[1.5rem] sm:rounded-[2.5rem] p-4 sm:p-8 shadow-2xl ring-4 ring-primary">
         <h1 className="text-xl sm:text-3xl md:text-4xl font-bold text-center mb-1 text-card-foreground">
           ПОЛУЧИ ЗАЙМ
         </h1>
