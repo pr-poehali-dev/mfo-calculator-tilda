@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Калькулятор займа - получите деньги на карту за 10 минут">
+    <title>Калькулятор займа</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        
+        .loan-calculator {
+            background: white;
+            border-radius: 2rem;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 28rem;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .decoration {
+            position: absolute;
+            top: 0;
+            left: 0;
+            font-size: 4rem;
+            opacity: 0.15;
+        }
+        
+        .calculator-content {
+            position: relative;
+            z-index: 10;
+        }
+        
+        h1, h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            text-align: center;
+            color: #1a202c;
+        }
+        
+        h1 {
+            font-size: 1.875rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        h2 {
+            font-size: 1.875rem;
+            margin-bottom: 2rem;
+        }
+        
+        .highlight {
+            color: #667eea;
+        }
+        
+        .input-group {
+            margin-bottom: 2rem;
+        }
+        
+        .label {
+            display: block;
+            font-size: 1.125rem;
+            font-weight: 500;
+            color: #2d3748;
+            margin-bottom: 0.75rem;
+        }
+        
+        .value-display {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 1rem;
+        }
+        
+        .slider-container {
+            margin-bottom: 0.5rem;
+        }
+        
+        input[type="range"] {
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: linear-gradient(to right, #667eea 0%, #667eea var(--value), #e2e8f0 var(--value), #e2e8f0 100%);
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #667eea;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+            transition: transform 0.2s;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+        
+        input[type="range"]::-moz-range-thumb {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #667eea;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+            transition: transform 0.2s;
+        }
+        
+        input[type="range"]::-moz-range-thumb:hover {
+            transform: scale(1.1);
+        }
+        
+        .range-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.875rem;
+            color: #718096;
+        }
+        
+        .term-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .promo-badge {
+            color: #667eea;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+        
+        .result-display {
+            display: flex;
+            align-items: baseline;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        
+        .old-price {
+            font-size: 1.25rem;
+            color: #a0aec0;
+            text-decoration: line-through;
+        }
+        
+        .new-price {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+        
+        .date-display {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a202c;
+        }
+        
+        .submit-button {
+            width: 100%;
+            height: 4rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: white;
+            background: #667eea;
+            border: none;
+            border-radius: 9999px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+            transition: all 0.2s;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .submit-button:hover {
+            background: #5a67d8;
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        .submit-button:active {
+            transform: translateY(0);
+        }
+        
+        @media (max-width: 640px) {
+            .loan-calculator {
+                padding: 1.5rem;
+                border-radius: 1.5rem;
+            }
+            
+            h1, h2 {
+                font-size: 1.5rem;
+            }
+            
+            .value-display {
+                font-size: 1.875rem;
+            }
+            
+            .new-price {
+                font-size: 1.875rem;
+            }
+            
+            .submit-button {
+                height: 3.5rem;
+                font-size: 1.125rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loan-calculator">
+        <div class="decoration">🌿</div>
+        
+        <div class="calculator-content">
+            <h1>ПОЛУЧИ ЗАЙМ</h1>
+            <h2>НА КАРТУ <span class="highlight">ЗА 10 МИН</span></h2>
+            
+            <div class="input-group">
+                <label class="label">Сумма</label>
+                <div class="value-display" id="amountDisplay">10 000 ₽</div>
+                <div class="slider-container">
+                    <input type="range" id="amountSlider" min="1000" max="100000" step="1000" value="10000">
+                </div>
+                <div class="range-labels">
+                    <span>1 000 ₽</span>
+                    <span>100 000 ₽</span>
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <label class="label">Срок</label>
+                <div class="term-header">
+                    <div class="value-display" id="daysDisplay">7 дней</div>
+                    <div class="promo-badge" id="promoBadge">ДО 7 ДНЕЙ БЕЗ %</div>
+                </div>
+                <div class="slider-container">
+                    <input type="range" id="daysSlider" min="1" max="365" step="1" value="7">
+                </div>
+                <div class="range-labels">
+                    <span>1 день</span>
+                    <span>365 дней</span>
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <label class="label">Вы возвращаете:</label>
+                <div class="result-display">
+                    <div class="old-price" id="oldPrice" style="display: none;">10 560 ₽</div>
+                    <div class="new-price" id="newPrice">10 000 ₽*</div>
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <label class="label">До (включительно):</label>
+                <div class="date-display" id="dateDisplay">18.02.2026</div>
+            </div>
+            
+            <button class="submit-button" onclick="handleSubmit()">
+                Получить деньги
+            </button>
+        </div>
+    </div>
+    
+    <script>
+        const amountSlider = document.getElementById('amountSlider');
+        const daysSlider = document.getElementById('daysSlider');
+        const amountDisplay = document.getElementById('amountDisplay');
+        const daysDisplay = document.getElementById('daysDisplay');
+        const promoBadge = document.getElementById('promoBadge');
+        const oldPrice = document.getElementById('oldPrice');
+        const newPrice = document.getElementById('newPrice');
+        const dateDisplay = document.getElementById('dateDisplay');
+        
+        const commission = 560;
+        
+        function formatNumber(num) {
+            return num.toLocaleString('ru-RU');
+        }
+        
+        function getDaysWord(days) {
+            if (days === 1) return 'день';
+            if (days >= 2 && days <= 4) return 'дня';
+            return 'дней';
+        }
+        
+        function formatDate(date) {
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            return `${day}.${month}.${year}`;
+        }
+        
+        function updateSliderBackground(slider, value, min, max) {
+            const percent = ((value - min) / (max - min)) * 100;
+            slider.style.setProperty('--value', percent + '%');
+        }
+        
+        function calculate() {
+            const amount = parseInt(amountSlider.value);
+            const days = parseInt(daysSlider.value);
+            
+            amountDisplay.textContent = `${formatNumber(amount)} ₽`;
+            daysDisplay.textContent = `${days} ${getDaysWord(days)}`;
+            
+            if (days <= 7) {
+                promoBadge.style.display = 'block';
+            } else {
+                promoBadge.style.display = 'none';
+            }
+            
+            const interestRate = days <= 7 ? 0 : 1;
+            const totalRepayment = amount + (amount * interestRate / 100) + (interestRate === 0 ? 0 : commission);
+            
+            if (interestRate > 0) {
+                oldPrice.style.display = 'block';
+                oldPrice.textContent = `${formatNumber(amount + commission)} ₽`;
+                newPrice.textContent = `${formatNumber(totalRepayment)} ₽`;
+            } else {
+                oldPrice.style.display = 'none';
+                newPrice.textContent = `${formatNumber(totalRepayment)} ₽*`;
+            }
+            
+            const repaymentDate = new Date();
+            repaymentDate.setDate(repaymentDate.getDate() + days);
+            dateDisplay.textContent = formatDate(repaymentDate);
+            
+            updateSliderBackground(amountSlider, amount, 1000, 100000);
+            updateSliderBackground(daysSlider, days, 1, 365);
+        }
+        
+        function handleSubmit() {
+            const amount = parseInt(amountSlider.value);
+            const days = parseInt(daysSlider.value);
+            alert(`Заявка на займ:\nСумма: ${formatNumber(amount)} ₽\nСрок: ${days} ${getDaysWord(days)}`);
+        }
+        
+        amountSlider.addEventListener('input', calculate);
+        daysSlider.addEventListener('input', calculate);
+        
+        calculate();
+    </script>
+</body>
+</html>
