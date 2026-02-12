@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
+import Icon from '@/components/ui/icon';
 
 const Index = () => {
   const [amount, setAmount] = useState(10000);
@@ -119,6 +120,26 @@ const Index = () => {
             >
               Получить деньги
             </Button>
+
+            <div className="mt-6 sm:mt-8 p-4 sm:p-6 bg-muted/30 rounded-2xl border border-muted">
+              <div className="flex items-center gap-2 mb-3">
+                <Icon name="Code2" size={20} className="text-primary" />
+                <h3 className="text-base sm:text-lg font-semibold text-card-foreground">Код для вашего сайта</h3>
+              </div>
+              <p className="text-xs sm:text-sm text-muted-foreground mb-3">
+                Скопируйте этот калькулятор на свой сайт или в Tilda
+              </p>
+              <Button 
+                variant="outline"
+                className="w-full"
+                onClick={() => {
+                  window.open('/tilda-calculator.html', '_blank');
+                }}
+              >
+                <Icon name="Download" size={18} className="mr-2" />
+                Открыть HTML-код
+              </Button>
+            </div>
           </div>
         </div>
       </div>
