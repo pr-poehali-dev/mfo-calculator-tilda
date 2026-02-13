@@ -277,84 +277,79 @@
     </div>
 
     <script>
-        const amountSlider = document.getElementById('amountSlider');
-        const daysSlider = document.getElementById('daysSlider');
-        const amountDisplay = document.getElementById('amountDisplay');
-        const daysDisplay = document.getElementById('daysDisplay');
-        const totalRepayment = document.getElementById('totalRepayment');
-        const repaymentDate = document.getElementById('repaymentDate');
-        const badge = document.getElementById('badge');
-        const repaymentWrapper = document.getElementById('repaymentWrapper');
+        var amountSlider = document.getElementById('amountSlider');
+        var daysSlider = document.getElementById('daysSlider');
+        var amountDisplay = document.getElementById('amountDisplay');
+        var daysDisplay = document.getElementById('daysDisplay');
+        var totalRepayment = document.getElementById('totalRepayment');
+        var repaymentDate = document.getElementById('repaymentDate');
+        var badge = document.getElementById('badge');
+        var repaymentWrapper = document.getElementById('repaymentWrapper');
 
-        const commission = 560;
+        var commission = 560;
 
         function formatNumber(num) {
-            return num.toLocaleString('ru-RU');
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
         }
 
         function getDaysWord(days) {
-            if (days === 1) return 'день';
-            if (days >= 2 && days <= 4) return 'дня';
+            var n = Math.abs(days) % 100;
+            var n1 = n % 10;
+            if (n > 10 && n < 20) return 'дней';
+            if (n1 > 1 && n1 < 5) return 'дня';
+            if (n1 === 1) return 'день';
             return 'дней';
         }
 
         function formatDate(date) {
-            const day = String(date.getDate()).padStart(2, '0');
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const year = date.getFullYear();
-            return `${day}.${month}.${year}`;
+            var day = String(date.getDate()).padStart(2, '0');
+            var month = String(date.getMonth() + 1).padStart(2, '0');
+            var year = date.getFullYear();
+            return day + '.' + month + '.' + year;
         }
 
         function updateSliderProgress(slider) {
-            const min = slider.min || 0;
-            const max = slider.max || 100;
-            const value = slider.value;
-            const percentage = ((value - min) / (max - min)) * 100;
-            slider.style.background = `linear-gradient(to right, hsl(217, 91%, 60%) 0%, hsl(217, 91%, 60%) ${percentage}%, hsla(217, 91%, 60%, 0.2) ${percentage}%, hsla(217, 91%, 60%, 0.2) 100%)`;
+            var min = parseFloat(slider.min) || 0;
+            var max = parseFloat(slider.max) || 100;
+            var value = parseFloat(slider.value);
+            var percentage = ((value - min) / (max - min)) * 100;
+            slider.style.background = 'linear-gradient(to right, hsl(217, 91%, 60%) 0%, hsl(217, 91%, 60%) ' + percentage + '%, hsla(217, 91%, 60%, 0.2) ' + percentage + '%, hsla(217, 91%, 60%, 0.2) 100%)';
         }
 
         function updateCalculator() {
-            const amount = parseInt(amountSlider.value);
-            const days = parseInt(daysSlider.value);
-            
+            var amount = parseInt(amountSlider.value, 10);
+            var days = parseInt(daysSlider.value, 10);
+
             updateSliderProgress(amountSlider);
             updateSliderProgress(daysSlider);
-            
-            let interestRate = 0;
+
+            var interestRate = 0;
             if (days > 7 && days <= 35) {
                 interestRate = 0.08;
             } else if (days > 35) {
                 interestRate = 0.52;
             }
 
-            const total = amount + (amount * interestRate * days / 100) + (interestRate === 0 ? 0 : commission);
+            var total = amount + (amount * interestRate * days / 100) + (interestRate === 0 ? 0 : commission);
 
-            const date = new Date();
+            var date = new Date();
             date.setDate(date.getDate() + days);
 
-            amountDisplay.textContent = `${formatNumber(amount)} ₽`;
-            daysDisplay.textContent = `${days} ${getDaysWord(days)}`;
+            amountDisplay.textContent = formatNumber(amount) + ' \u20BD';
+            daysDisplay.textContent = days + ' ' + getDaysWord(days);
             repaymentDate.textContent = formatDate(date);
 
             if (days <= 7) {
                 badge.textContent = 'ДО 7 ДНЕЙ БЕЗ %';
                 badge.style.display = 'block';
-                repaymentWrapper.innerHTML = `<div class="repayment-value">${formatNumber(Math.round(total))} ₽*</div>`;
+                repaymentWrapper.innerHTML = '<div class="repayment-value">' + formatNumber(Math.round(total)) + ' \u20BD*</div>';
             } else if (days <= 35) {
                 badge.textContent = '0.08% В ДЕНЬ';
                 badge.style.display = 'block';
-                const oldPrice = amount + commission;
-                repaymentWrapper.innerHTML = `
-                    <div class="old-price">${formatNumber(oldPrice)} ₽</div>
-                    <div class="repayment-value">${formatNumber(Math.round(total))} ₽</div>
-                `;
+                repaymentWrapper.innerHTML = '<div class="old-price">' + formatNumber(amount + commission) + ' \u20BD</div><div class="repayment-value">' + formatNumber(Math.round(total)) + ' \u20BD</div>';
             } else {
                 badge.style.display = 'none';
-                const oldPrice = amount + commission;
-                repaymentWrapper.innerHTML = `
-                    <div class="old-price">${formatNumber(oldPrice)} ₽</div>
-                    <div class="repayment-value">${formatNumber(Math.round(total))} ₽</div>
-                `;
+                repaymentWrapper.innerHTML = '<div class="old-price">' + formatNumber(amount + commission) + ' \u20BD</div><div class="repayment-value">' + formatNumber(Math.round(total)) + ' \u20BD</div>';
             }
         }
 
