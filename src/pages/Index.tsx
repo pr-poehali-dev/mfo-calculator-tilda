@@ -36,7 +36,7 @@ const Index = () => {
           ПОЛУЧИ ЗАЙМ
         </h1>
         <h2 className="text-xl sm:text-3xl md:text-4xl font-bold text-center mb-3 sm:mb-6 text-card-foreground">
-          НА КАРТУ <span className="text-primary">ЗА 10 МИН</span>
+          НА КАРТУ <span className="text-primary">ПОД 0%</span>
         </h2>
 
         <div className="space-y-3 sm:space-y-6">
