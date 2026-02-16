@@ -1,305 +1,366 @@
-<div id="loan-calc-widget">
-<style>
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Roboto:wght@400;500;600&display=swap");
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор займа</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Roboto:wght@400;500;600&display=swap");
 
-#loan-calc-widget * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-#loan-calc-widget {
-    font-family: "Roboto", sans-serif;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-}
-
-#loan-calc-widget .lc-card {
-    width: 100%;
-    max-width: 380px;
-    margin: 0 auto;
-    background: white;
-    border-radius: 20px;
-    padding: 14px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    position: relative;
-    overflow: hidden;
-    border: 2px solid hsl(217, 91%, 60%);
-}
-
-#loan-calc-widget .lc-title {
-    font-family: "Montserrat", sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 4px;
-    color: hsl(222.2, 84%, 4.9%);
-}
-
-#loan-calc-widget .lc-subtitle {
-    font-family: "Montserrat", sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 12px;
-    color: hsl(222.2, 84%, 4.9%);
-}
-
-#loan-calc-widget .lc-highlight {
-    color: white;
-    background: hsl(217, 91%, 60%);
-    border-radius: 8px;
-    padding: 2px 10px;
-    display: inline-block;
-}
-
-#loan-calc-widget .lc-section {
-    margin-bottom: 12px;
-}
-
-#loan-calc-widget .lc-label {
-    display: block;
-    font-size: 14px;
-    font-weight: 500;
-    color: hsl(222.2, 84%, 4.9%);
-    margin-bottom: 4px;
-}
-
-#loan-calc-widget .lc-value {
-    font-size: 24px;
-    font-weight: 700;
-    color: hsl(222.2, 84%, 4.9%);
-    margin-bottom: 8px;
-}
-
-#loan-calc-widget .lc-slider-wrap {
-    margin-bottom: 8px;
-}
-
-#loan-calc-widget .lc-slider {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100%;
-    height: 12px;
-    border-radius: 9999px;
-    background: hsla(217, 91%, 60%, 0.2);
-    outline: none;
-}
-
-#loan-calc-widget .lc-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: linear-gradient(to bottom right, hsl(217, 91%, 60%), hsl(217, 91%, 50%));
-    border: 3px solid white;
-    cursor: grab;
-    box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3);
-}
-
-#loan-calc-widget .lc-slider::-moz-range-thumb {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: linear-gradient(to bottom right, hsl(217, 91%, 60%), hsl(217, 91%, 50%));
-    border: 3px solid white;
-    cursor: grab;
-    box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3);
-}
-
-#loan-calc-widget .lc-range {
-    display: flex;
-    justify-content: space-between;
-    font-size: 10px;
-    color: hsl(0, 0%, 50%);
-}
-
-#loan-calc-widget .lc-days-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-}
-
-#loan-calc-widget .lc-badge {
-    color: hsl(217, 91%, 60%);
-    font-size: 10px;
-    font-weight: 600;
-}
-
-#loan-calc-widget .lc-repay-wrap {
-    display: flex;
-    align-items: baseline;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-
-#loan-calc-widget .lc-old-price {
-    font-size: 16px;
-    color: hsl(0, 0%, 50%);
-    text-decoration: line-through;
-}
-
-#loan-calc-widget .lc-repay-value {
-    font-size: 24px;
-    font-weight: 700;
-    color: hsl(0, 72%, 51%);
-}
-
-#loan-calc-widget .lc-date {
-    font-size: 18px;
-    font-weight: 700;
-    color: hsl(222.2, 84%, 4.9%);
-}
-
-#loan-calc-widget .lc-btn {
-    display: block;
-    width: 100%;
-    height: 48px;
-    font-size: 16px;
-    font-weight: 700;
-    font-family: "Roboto", sans-serif;
-    color: white;
-    background: hsl(217, 91%, 60%);
-    border: none;
-    border-radius: 9999px;
-    cursor: pointer;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    transition: all 0.2s;
-    text-decoration: none;
-    line-height: 48px;
-    text-align: center;
-}
-
-#loan-calc-widget .lc-btn:hover {
-    background: hsl(217, 91%, 55%);
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-}
-</style>
-
-<div class="lc-card">
-    <div class="lc-title">ПОЛУЧИ ЗАЙМ</div>
-    <div class="lc-subtitle">НА КАРТУ <span class="lc-highlight">ЗА 10 МИН</span></div>
-
-    <div class="lc-section">
-        <span class="lc-label">Сумма</span>
-        <div class="lc-value" id="lcAmount">10 000 ₽</div>
-        <div class="lc-slider-wrap">
-            <input type="range" class="lc-slider" id="lcAmountSlider" min="1000" max="100000" step="1000" value="10000">
-        </div>
-        <div class="lc-range">
-            <span>1 000 ₽</span>
-            <span>100 000 ₽</span>
-        </div>
-    </div>
-
-    <div class="lc-section">
-        <span class="lc-label">Срок</span>
-        <div class="lc-days-row">
-            <div class="lc-value" id="lcDays">7 дней</div>
-            <div class="lc-badge" id="lcBadge">ДО 7 ДНЕЙ БЕЗ %</div>
-        </div>
-        <div class="lc-slider-wrap">
-            <input type="range" class="lc-slider" id="lcDaysSlider" min="1" max="365" step="1" value="7">
-        </div>
-        <div class="lc-range">
-            <span>1 день</span>
-            <span>365 дней</span>
-        </div>
-    </div>
-
-    <div class="lc-section">
-        <span class="lc-label">Вы возвращаете:</span>
-        <div class="lc-repay-wrap" id="lcRepay">
-            <div class="lc-repay-value" id="lcTotal">10 000 ₽*</div>
-        </div>
-    </div>
-
-    <div class="lc-section">
-        <span class="lc-label">До (включительно):</span>
-        <div class="lc-date" id="lcDate">20.02.2026</div>
-    </div>
-
-    <a class="lc-btn" href="https://tuchkafinance.ru/applicationform" target="_blank">Получить деньги</a>
-</div>
-
-<script>
-(function() {
-    var aSlider = document.getElementById('lcAmountSlider');
-    var dSlider = document.getElementById('lcDaysSlider');
-    var aDisplay = document.getElementById('lcAmount');
-    var dDisplay = document.getElementById('lcDays');
-    var tDisplay = document.getElementById('lcTotal');
-    var dateDisplay = document.getElementById('lcDate');
-    var badgeEl = document.getElementById('lcBadge');
-    var repayWrap = document.getElementById('lcRepay');
-    var fee = 560;
-
-    function fmt(n) {
-        return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
-    }
-
-    function dw(d) {
-        var n = Math.abs(d) % 100;
-        var n1 = n % 10;
-        if (n > 10 && n < 20) return 'дней';
-        if (n1 > 1 && n1 < 5) return 'дня';
-        if (n1 === 1) return 'день';
-        return 'дней';
-    }
-
-    function fmtDate(dt) {
-        var dd = String(dt.getDate()).padStart(2, '0');
-        var mm = String(dt.getMonth() + 1).padStart(2, '0');
-        return dd + '.' + mm + '.' + dt.getFullYear();
-    }
-
-    function prog(s) {
-        var mn = parseFloat(s.min) || 0;
-        var mx = parseFloat(s.max) || 100;
-        var v = parseFloat(s.value);
-        var p = ((v - mn) / (mx - mn)) * 100;
-        s.style.background = 'linear-gradient(to right, hsl(217,91%,60%) ' + p + '%, hsla(217,91%,60%,0.2) ' + p + '%)';
-    }
-
-    function calc() {
-        var a = parseInt(aSlider.value, 10);
-        var d = parseInt(dSlider.value, 10);
-        prog(aSlider);
-        prog(dSlider);
-
-        var r = 0;
-        if (d > 7 && d <= 35) r = 0.08;
-        else if (d > 35) r = 0.52;
-
-        var total = a + (a * r * d / 100) + (r === 0 ? 0 : fee);
-        var dt = new Date();
-        dt.setDate(dt.getDate() + d);
-
-        aDisplay.textContent = fmt(a) + ' \u20BD';
-        dDisplay.textContent = d + ' ' + dw(d);
-        dateDisplay.textContent = fmtDate(dt);
-
-        if (d <= 7) {
-            badgeEl.textContent = 'ДО 7 ДНЕЙ БЕЗ %';
-            badgeEl.style.display = 'block';
-            repayWrap.innerHTML = '<div class="lc-repay-value">' + fmt(Math.round(total)) + ' \u20BD*</div>';
-        } else if (d <= 35) {
-            badgeEl.textContent = '0.08% В ДЕНЬ';
-            badgeEl.style.display = 'block';
-            repayWrap.innerHTML = '<div class="lc-old-price">' + fmt(a + fee) + ' \u20BD</div><div class="lc-repay-value">' + fmt(Math.round(total)) + ' \u20BD</div>';
-        } else {
-            badgeEl.style.display = 'none';
-            repayWrap.innerHTML = '<div class="lc-old-price">' + fmt(a + fee) + ' \u20BD</div><div class="lc-repay-value">' + fmt(Math.round(total)) + ' \u20BD</div>';
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-    }
 
-    aSlider.addEventListener('input', calc);
-    dSlider.addEventListener('input', calc);
-    calc();
-})();
-</script>
-</div>
+        html, body {
+            height: auto;
+            min-height: 0;
+        }
+
+        body {
+            font-family: "Roboto", sans-serif;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 0;
+        }
+
+
+
+        h1, h2, h3 {
+            font-family: "Montserrat", sans-serif;
+        }
+
+        .calculator-container {
+            width: 100%;
+            max-width: 380px;
+            background: white;
+            border-radius: 20px;
+            padding: 14px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid hsl(217, 91%, 60%);
+        }
+
+        .title {
+            font-size: 20px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 4px;
+            color: hsl(222.2, 84%, 4.9%);
+        }
+
+        .subtitle {
+            font-size: 20px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 12px;
+            color: hsl(222.2, 84%, 4.9%);
+        }
+
+        .subtitle .highlight {
+            color: white;
+            background: hsl(217, 91%, 60%);
+            border-radius: 8px;
+            padding: 2px 10px;
+            display: inline-block;
+        }
+
+        .section {
+            margin-bottom: 12px;
+        }
+
+        .label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: hsl(222.2, 84%, 4.9%);
+            margin-bottom: 4px;
+        }
+
+        .value-display {
+            font-size: 24px;
+            font-weight: 700;
+            color: hsl(222.2, 84%, 4.9%);
+            margin-bottom: 8px;
+        }
+
+        .slider-container {
+            margin-bottom: 8px;
+        }
+
+        .slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 12px;
+            border-radius: 9999px;
+            background: hsla(217, 91%, 60%, 0.2);
+            outline: none;
+            position: relative;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: linear-gradient(to bottom right, hsl(217, 91%, 60%), hsl(217, 91%, 50%));
+            border: 3px solid white;
+            cursor: grab;
+            box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3);
+            transition: all 0.3s;
+        }
+
+        .slider::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+
+        .slider::-webkit-slider-thumb:active {
+            cursor: grabbing;
+            transform: scale(0.95);
+        }
+
+        .slider::-moz-range-thumb {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: linear-gradient(to bottom right, hsl(217, 91%, 60%), hsl(217, 91%, 50%));
+            border: 3px solid white;
+            cursor: grab;
+            box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3);
+            transition: all 0.3s;
+        }
+
+        .slider::-moz-range-thumb:hover {
+            transform: scale(1.1);
+        }
+
+        .slider::-moz-range-thumb:active {
+            cursor: grabbing;
+            transform: scale(0.95);
+        }
+
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 10px;
+            color: hsl(0, 0%, 50%);
+        }
+
+        .days-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .badge {
+            color: hsl(217, 91%, 60%);
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .repayment-wrapper {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .old-price {
+            font-size: 16px;
+            color: hsl(0, 0%, 50%);
+            text-decoration: line-through;
+        }
+
+        .repayment-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: hsl(0, 72%, 51%);
+        }
+
+        .date-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: hsl(222.2, 84%, 4.9%);
+        }
+
+        .button {
+            width: 100%;
+            height: 48px;
+            font-size: 16px;
+            font-weight: 700;
+            color: white;
+            background: hsl(217, 91%, 60%);
+            border: none;
+            border-radius: 9999px;
+            cursor: pointer;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s;
+        }
+
+        .button:hover {
+            background: hsl(217, 91%, 55%);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .button:active {
+            transform: scale(0.98);
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="calculator-container">
+        <h1 class="title">ПОЛУЧИ ЗАЙМ</h1>
+        <h2 class="subtitle">НА КАРТУ <span class="highlight">ЗА 10 МИН</span></h2>
+
+        <div class="section">
+            <label class="label">Сумма</label>
+            <div class="value-display" id="amountDisplay">10 000 ₽</div>
+            <div class="slider-container">
+                <input 
+                    type="range" 
+                    class="slider" 
+                    id="amountSlider" 
+                    min="1000" 
+                    max="100000" 
+                    step="1000" 
+                    value="10000"
+                >
+            </div>
+            <div class="slider-labels">
+                <span>1 000 ₽</span>
+                <span>100 000 ₽</span>
+            </div>
+        </div>
+
+        <div class="section">
+            <label class="label">Срок</label>
+            <div class="days-header">
+                <div class="value-display" id="daysDisplay">7 дней</div>
+                <div class="badge" id="badge">ДО 7 ДНЕЙ БЕЗ %</div>
+            </div>
+            <div class="slider-container">
+                <input 
+                    type="range" 
+                    class="slider" 
+                    id="daysSlider" 
+                    min="1" 
+                    max="365" 
+                    step="1" 
+                    value="7"
+                >
+            </div>
+            <div class="slider-labels">
+                <span>1 день</span>
+                <span>365 дней</span>
+            </div>
+        </div>
+
+        <div class="section">
+            <label class="label">Вы возвращаете:</label>
+            <div class="repayment-wrapper" id="repaymentWrapper">
+                <div class="repayment-value" id="totalRepayment">10 000 ₽*</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <label class="label">До (включительно):</label>
+            <div class="date-value" id="repaymentDate">19.02.2026</div>
+        </div>
+
+        <button class="button" onclick="window.open('https://tuchkafinance.ru/applicationform', '_blank')">Получить деньги</button>
+    </div>
+
+    <script>
+        var amountSlider = document.getElementById('amountSlider');
+        var daysSlider = document.getElementById('daysSlider');
+        var amountDisplay = document.getElementById('amountDisplay');
+        var daysDisplay = document.getElementById('daysDisplay');
+        var totalRepayment = document.getElementById('totalRepayment');
+        var repaymentDate = document.getElementById('repaymentDate');
+        var badge = document.getElementById('badge');
+        var repaymentWrapper = document.getElementById('repaymentWrapper');
+
+        var commission = 560;
+
+        function formatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+        }
+
+        function getDaysWord(days) {
+            var n = Math.abs(days) % 100;
+            var n1 = n % 10;
+            if (n > 10 && n < 20) return 'дней';
+            if (n1 > 1 && n1 < 5) return 'дня';
+            if (n1 === 1) return 'день';
+            return 'дней';
+        }
+
+        function formatDate(date) {
+            var day = String(date.getDate()).padStart(2, '0');
+            var month = String(date.getMonth() + 1).padStart(2, '0');
+            var year = date.getFullYear();
+            return day + '.' + month + '.' + year;
+        }
+
+        function updateSliderProgress(slider) {
+            var min = parseFloat(slider.min) || 0;
+            var max = parseFloat(slider.max) || 100;
+            var value = parseFloat(slider.value);
+            var percentage = ((value - min) / (max - min)) * 100;
+            slider.style.background = 'linear-gradient(to right, hsl(217, 91%, 60%) 0%, hsl(217, 91%, 60%) ' + percentage + '%, hsla(217, 91%, 60%, 0.2) ' + percentage + '%, hsla(217, 91%, 60%, 0.2) 100%)';
+        }
+
+        function updateCalculator() {
+            var amount = parseInt(amountSlider.value, 10);
+            var days = parseInt(daysSlider.value, 10);
+
+            updateSliderProgress(amountSlider);
+            updateSliderProgress(daysSlider);
+
+            var interestRate = 0;
+            if (days > 7 && days <= 35) {
+                interestRate = 0.08;
+            } else if (days > 35) {
+                interestRate = 0.52;
+            }
+
+            var total = amount + (amount * interestRate * days / 100) + (interestRate === 0 ? 0 : commission);
+
+            var date = new Date();
+            date.setDate(date.getDate() + days);
+
+            amountDisplay.textContent = formatNumber(amount) + ' \u20BD';
+            daysDisplay.textContent = days + ' ' + getDaysWord(days);
+            repaymentDate.textContent = formatDate(date);
+
+            if (days <= 7) {
+                badge.textContent = 'ДО 7 ДНЕЙ БЕЗ %';
+                badge.style.display = 'block';
+                repaymentWrapper.innerHTML = '<div class="repayment-value">' + formatNumber(Math.round(total)) + ' \u20BD*</div>';
+            } else if (days <= 35) {
+                badge.textContent = '0.08% В ДЕНЬ';
+                badge.style.display = 'block';
+                repaymentWrapper.innerHTML = '<div class="old-price">' + formatNumber(amount + commission) + ' \u20BD</div><div class="repayment-value">' + formatNumber(Math.round(total)) + ' \u20BD</div>';
+            } else {
+                badge.style.display = 'none';
+                repaymentWrapper.innerHTML = '<div class="old-price">' + formatNumber(amount + commission) + ' \u20BD</div><div class="repayment-value">' + formatNumber(Math.round(total)) + ' \u20BD</div>';
+            }
+        }
+
+        amountSlider.addEventListener('input', updateCalculator);
+        daysSlider.addEventListener('input', updateCalculator);
+
+        updateCalculator();
+    </script>
+</body>
+</html>
