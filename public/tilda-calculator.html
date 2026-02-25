@@ -75,6 +75,12 @@
         border: none;
     }
 
+    @keyframes tc-pulse-ring {
+        0% { box-shadow: 0 0 0 0 rgba(232, 41, 58, 0.4), 0 2px 8px rgba(232, 41, 58, 0.3); }
+        70% { box-shadow: 0 0 0 10px rgba(232, 41, 58, 0), 0 2px 8px rgba(232, 41, 58, 0.3); }
+        100% { box-shadow: 0 0 0 0 rgba(232, 41, 58, 0), 0 2px 8px rgba(232, 41, 58, 0.3); }
+    }
+
     #tuchka-calc input[type="range"]::-webkit-slider-thumb {
         -webkit-appearance: none;
         appearance: none;
@@ -83,20 +89,15 @@
         border-radius: 50%;
         background: #e8293a;
         cursor: grab;
-        box-shadow: 0 2px 8px rgba(232, 41, 58, 0.4);
-        transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s;
         border: 3px solid #fff;
-    }
-
-    #tuchka-calc input[type="range"]::-webkit-slider-thumb:hover {
-        transform: scale(1.2);
-        box-shadow: 0 4px 16px rgba(232, 41, 58, 0.5);
+        animation: tc-pulse-ring 2s ease-out infinite;
     }
 
     #tuchka-calc input[type="range"]::-webkit-slider-thumb:active {
         cursor: grabbing;
-        transform: scale(1.35);
-        box-shadow: 0 0 0 8px rgba(232, 41, 58, 0.15), 0 4px 16px rgba(232, 41, 58, 0.5);
+        animation: none;
+        box-shadow: 0 0 0 10px rgba(232, 41, 58, 0.15), 0 4px 16px rgba(232, 41, 58, 0.4);
+        transform: scale(1.15);
     }
 
     #tuchka-calc input[type="range"]::-moz-range-thumb {
@@ -106,19 +107,14 @@
         background: #e8293a;
         cursor: grab;
         border: 3px solid #fff;
-        box-shadow: 0 2px 8px rgba(232, 41, 58, 0.4);
-        transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s;
-    }
-
-    #tuchka-calc input[type="range"]::-moz-range-thumb:hover {
-        transform: scale(1.2);
-        box-shadow: 0 4px 16px rgba(232, 41, 58, 0.5);
+        animation: tc-pulse-ring 2s ease-out infinite;
     }
 
     #tuchka-calc input[type="range"]::-moz-range-thumb:active {
         cursor: grabbing;
-        transform: scale(1.35);
-        box-shadow: 0 0 0 8px rgba(232, 41, 58, 0.15), 0 4px 16px rgba(232, 41, 58, 0.5);
+        animation: none;
+        box-shadow: 0 0 0 10px rgba(232, 41, 58, 0.15), 0 4px 16px rgba(232, 41, 58, 0.4);
+        transform: scale(1.15);
     }
 
     #tuchka-calc input[type="range"]::-moz-range-track {
