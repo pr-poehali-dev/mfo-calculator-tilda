@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Slider } from '@/components/ui/slider';
+import Icon from '@/components/ui/icon';
 
 const Index = () => {
   const [amount, setAmount] = useState(68000);
@@ -32,14 +33,12 @@ const Index = () => {
   const fmt = (n: number) => n.toLocaleString('ru-RU');
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4" style={{ background: '#1a1a1a' }}>
+    <div className="min-h-screen flex items-center justify-center p-4 gap-6 flex-col lg:flex-row" style={{ background: '#1a1a1a' }}>
       <div className="w-full max-w-[360px] bg-white rounded-3xl p-5 sm:p-6 shadow-2xl">
-        {/* Header */}
         <h2 className="text-center font-bold text-[#1a1a1a] leading-snug mb-7" style={{ fontSize: '18px' }}>
           Оформите заявку прямо сейчас и получите решение в {decisionTime || '--:--'}
         </h2>
 
-        {/* Amount slider */}
         <div className="mb-6">
           <div className="flex justify-between items-center mb-3">
             <span style={{ fontSize: '15px', color: '#888' }}>Сумма займа</span>
@@ -59,7 +58,6 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Days slider */}
         <div className="mb-6">
           <div className="flex justify-between items-center mb-3">
             <span style={{ fontSize: '15px', color: '#888' }}>Срок займа</span>
@@ -79,7 +77,6 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Info cards */}
         <div className="grid grid-cols-2 gap-3 mb-4">
           <div className="rounded-2xl p-4" style={{ background: '#fff0f1' }}>
             <div style={{ fontSize: '13px', color: '#888', marginBottom: '6px' }}>К возврату</div>
@@ -91,7 +88,6 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Submit button */}
         <button
           className="w-full font-bold text-white transition-all duration-200"
           style={{
@@ -115,6 +111,47 @@ const Index = () => {
         >
           Оформить заявку
         </button>
+      </div>
+
+      <div className="w-full max-w-[360px] bg-[#2a2a2a] rounded-3xl p-5 sm:p-6 shadow-2xl">
+        <div className="flex items-center gap-2 mb-4">
+          <Icon name="Code2" size={20} className="text-[#e8293a]" />
+          <h3 className="text-base font-semibold text-white">Код для Tilda</h3>
+        </div>
+        <p className="text-sm text-gray-400 mb-4">
+          Скопируйте HTML-код калькулятора и вставьте в блок T123 на Tilda или на любой сайт.
+        </p>
+        <div className="flex gap-2">
+          <button
+            className="flex-1 flex items-center justify-center gap-2 font-medium text-white transition-all duration-200 rounded-xl"
+            style={{ height: '44px', fontSize: '14px', background: '#3a3a3a', border: '1px solid #555', cursor: 'pointer' }}
+            onMouseEnter={e => { (e.target as HTMLElement).style.background = '#444'; }}
+            onMouseLeave={e => { (e.target as HTMLElement).style.background = '#3a3a3a'; }}
+            onClick={async () => {
+              try {
+                const response = await fetch('/tilda-calculator.html');
+                const htmlCode = await response.text();
+                await navigator.clipboard.writeText(htmlCode);
+                alert('Код скопирован!');
+              } catch {
+                window.open('/tilda-calculator.html', '_blank');
+              }
+            }}
+          >
+            <Icon name="Copy" size={16} />
+            Скопировать
+          </button>
+          <button
+            className="flex-1 flex items-center justify-center gap-2 font-medium text-white transition-all duration-200 rounded-xl"
+            style={{ height: '44px', fontSize: '14px', background: '#3a3a3a', border: '1px solid #555', cursor: 'pointer' }}
+            onMouseEnter={e => { (e.target as HTMLElement).style.background = '#444'; }}
+            onMouseLeave={e => { (e.target as HTMLElement).style.background = '#3a3a3a'; }}
+            onClick={() => window.open('/tilda-calculator.html', '_blank')}
+          >
+            <Icon name="Eye" size={16} />
+            Просмотр
+          </button>
+        </div>
       </div>
     </div>
   );
