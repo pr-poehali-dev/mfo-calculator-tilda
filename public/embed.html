@@ -3,308 +3,310 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Калькулятор займа - Встраиваемый код</title>
+    <title>Калькулятор займа</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #1a1a1a;
-            min-height: 100vh;
+            margin: 0;
+            padding: 1rem;
+            background: transparent;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1rem;
-        }
-
-        .loan-calculator {
-            background: #ffffff;
-            border-radius: 24px;
-            padding: 28px 24px;
-            max-width: 420px;
-            width: 100%;
-            box-shadow: 0 24px 64px rgba(0,0,0,0.4);
-        }
-
-        .header-title {
-            font-size: 18px;
-            font-weight: 700;
-            color: #1a1a1a;
-            text-align: center;
-            line-height: 1.4;
-            margin-bottom: 28px;
-        }
-
-        .slider-row {
-            margin-bottom: 24px;
-        }
-
-        .slider-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-
-        .slider-label {
-            font-size: 15px;
-            color: #888;
-            font-weight: 400;
-        }
-
-        .slider-value {
-            font-size: 22px;
-            font-weight: 700;
-            color: #e8293a;
-        }
-
-        input[type="range"] {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 100%;
-            height: 6px;
-            border-radius: 3px;
-            outline: none;
-            cursor: pointer;
-            background: linear-gradient(to right, #e8293a 0%, #e8293a var(--value, 67%), #e0e0e0 var(--value, 67%), #e0e0e0 100%);
-            margin-bottom: 8px;
-        }
-
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 26px;
-            height: 26px;
-            border-radius: 50%;
-            background: #e8293a;
-            cursor: grab;
-            box-shadow: 0 2px 8px rgba(232, 41, 58, 0.4);
-            transition: transform 0.15s;
-            border: 3px solid #fff;
-        }
-
-        input[type="range"]::-webkit-slider-thumb:hover {
-            transform: scale(1.12);
-        }
-
-        input[type="range"]::-webkit-slider-thumb:active {
-            cursor: grabbing;
-            transform: scale(1.05);
-        }
-
-        input[type="range"]::-moz-range-thumb {
-            width: 26px;
-            height: 26px;
-            border-radius: 50%;
-            background: #e8293a;
-            cursor: grab;
-            border: 3px solid #fff;
-            box-shadow: 0 2px 8px rgba(232, 41, 58, 0.4);
-            transition: transform 0.15s;
-        }
-
-        input[type="range"]::-moz-range-track {
-            height: 6px;
-            border-radius: 3px;
-            background: transparent;
-        }
-
-        .range-labels {
-            display: flex;
-            justify-content: space-between;
-            font-size: 13px;
-            color: #aaa;
-        }
-
-        .info-cards {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 16px;
-        }
-
-        .info-card {
-            background: #fff0f1;
-            border-radius: 14px;
-            padding: 14px 16px;
-        }
-
-        .info-card-label {
-            font-size: 13px;
-            color: #888;
-            margin-bottom: 6px;
-        }
-
-        .info-card-value {
-            font-size: 20px;
-            font-weight: 700;
-            color: #e8293a;
-        }
-
-        .submit-button {
-            width: 100%;
-            height: 56px;
-            font-size: 17px;
-            font-weight: 700;
-            color: #fff;
-            background: #e8293a;
-            border: none;
-            border-radius: 14px;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-family: 'Inter', sans-serif;
-            letter-spacing: 0.3px;
-        }
-
-        .submit-button:hover {
-            background: #c81f2e;
-            transform: translateY(-1px);
-            box-shadow: 0 8px 24px rgba(232, 41, 58, 0.35);
-        }
-
-        .submit-button:active {
-            transform: translateY(0);
-        }
-
-        @media (max-width: 480px) {
-            .loan-calculator {
-                padding: 22px 18px;
-                border-radius: 20px;
-            }
-
-            .header-title {
-                font-size: 16px;
-            }
-
-            .slider-value {
-                font-size: 19px;
-            }
-
-            .info-card-value {
-                font-size: 17px;
-            }
-
-            .submit-button {
-                height: 52px;
-                font-size: 16px;
-            }
+            min-height: 100vh;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
     </style>
 </head>
 <body>
-    <div class="loan-calculator">
-        <div class="header-title">
-            Оформите заявку прямо сейчас и получите решение в <span id="decisionTime">--:--</span>
-        </div>
 
-        <div class="slider-row">
-            <div class="slider-header">
-                <span class="slider-label">Сумма займа</span>
-                <span class="slider-value" id="amountDisplay">10 000 ₽</span>
-            </div>
-            <input type="range" id="amountSlider" min="1000" max="100000" step="1000" value="68000">
-            <div class="range-labels">
-                <span>1 000 ₽</span>
-                <span>100 000 ₽</span>
-            </div>
-        </div>
+<!-- Калькулятор займа — безопасный код для вставки на любой сайт -->
+<style>
+    #tuchka-calc,
+    #tuchka-calc *,
+    #tuchka-calc *::before,
+    #tuchka-calc *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        line-height: normal;
+    }
 
-        <div class="slider-row">
-            <div class="slider-header">
-                <span class="slider-label">Срок займа</span>
-                <span class="slider-value" id="daysDisplay">7 дней</span>
-            </div>
-            <input type="range" id="daysSlider" min="1" max="90" step="1" value="74">
-            <div class="range-labels">
-                <span>1 дн.</span>
-                <span>90 дн.</span>
-            </div>
-        </div>
+    #tuchka-calc {
+        all: initial;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        max-width: 420px;
+        width: 100%;
+        margin: 0 auto;
+        background: #ffffff;
+        border-radius: 24px;
+        padding: 28px 24px;
+        box-shadow: 0 24px 64px rgba(0,0,0,0.12);
+        display: block;
+    }
 
-        <div class="info-cards">
-            <div class="info-card">
-                <div class="info-card-label">К возврату</div>
-                <div class="info-card-value" id="totalDisplay">10 000 ₽</div>
-            </div>
-            <div class="info-card">
-                <div class="info-card-label">Платёж в день</div>
-                <div class="info-card-value" id="dailyDisplay">0 ₽</div>
-            </div>
-        </div>
+    #tuchka-calc .tc-header {
+        font-size: 18px;
+        font-weight: 700;
+        color: #1a1a1a;
+        text-align: center;
+        line-height: 1.4;
+        margin-bottom: 28px;
+    }
 
-        <button class="submit-button" onclick="handleSubmit()">Оформить заявку</button>
+    #tuchka-calc .tc-row {
+        margin-bottom: 24px;
+    }
+
+    #tuchka-calc .tc-row-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+    }
+
+    #tuchka-calc .tc-label {
+        font-size: 15px;
+        color: #888;
+        font-weight: 400;
+    }
+
+    #tuchka-calc .tc-val {
+        font-size: 22px;
+        font-weight: 700;
+        color: #e8293a;
+    }
+
+    #tuchka-calc input[type="range"] {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 100%;
+        height: 6px;
+        border-radius: 3px;
+        outline: none;
+        cursor: pointer;
+        background: linear-gradient(to right, #e8293a 0%, #e8293a var(--tc-pct, 67%), #e0e0e0 var(--tc-pct, 67%), #e0e0e0 100%);
+        margin: 0 0 8px 0;
+        padding: 0;
+        border: none;
+    }
+
+    #tuchka-calc input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: #e8293a;
+        cursor: grab;
+        box-shadow: 0 2px 8px rgba(232, 41, 58, 0.4);
+        transition: transform 0.15s;
+        border: 3px solid #fff;
+    }
+
+    #tuchka-calc input[type="range"]::-webkit-slider-thumb:hover {
+        transform: scale(1.12);
+    }
+
+    #tuchka-calc input[type="range"]::-webkit-slider-thumb:active {
+        cursor: grabbing;
+        transform: scale(1.05);
+    }
+
+    #tuchka-calc input[type="range"]::-moz-range-thumb {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: #e8293a;
+        cursor: grab;
+        border: 3px solid #fff;
+        box-shadow: 0 2px 8px rgba(232, 41, 58, 0.4);
+        transition: transform 0.15s;
+    }
+
+    #tuchka-calc input[type="range"]::-moz-range-track {
+        height: 6px;
+        border-radius: 3px;
+        background: transparent;
+    }
+
+    #tuchka-calc .tc-minmax {
+        display: flex;
+        justify-content: space-between;
+        font-size: 13px;
+        color: #aaa;
+    }
+
+    #tuchka-calc .tc-cards {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 16px;
+    }
+
+    #tuchka-calc .tc-card {
+        background: #fff0f1;
+        border-radius: 14px;
+        padding: 14px 16px;
+    }
+
+    #tuchka-calc .tc-card-lbl {
+        font-size: 13px;
+        color: #888;
+        margin-bottom: 6px;
+    }
+
+    #tuchka-calc .tc-card-val {
+        font-size: 20px;
+        font-weight: 700;
+        color: #e8293a;
+    }
+
+    #tuchka-calc .tc-btn {
+        all: unset;
+        display: block;
+        width: 100%;
+        height: 56px;
+        font-size: 17px;
+        font-weight: 700;
+        color: #fff;
+        background: #e8293a;
+        border: none;
+        border-radius: 14px;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        letter-spacing: 0.3px;
+        text-align: center;
+        line-height: 56px;
+        box-sizing: border-box;
+    }
+
+    #tuchka-calc .tc-btn:hover {
+        background: #c81f2e;
+        transform: translateY(-1px);
+        box-shadow: 0 8px 24px rgba(232, 41, 58, 0.35);
+    }
+
+    #tuchka-calc .tc-btn:active {
+        transform: translateY(0);
+    }
+
+    @media (max-width: 480px) {
+        #tuchka-calc {
+            padding: 22px 18px;
+            border-radius: 20px;
+        }
+
+        #tuchka-calc .tc-header {
+            font-size: 16px;
+        }
+
+        #tuchka-calc .tc-val {
+            font-size: 19px;
+        }
+
+        #tuchka-calc .tc-card-val {
+            font-size: 17px;
+        }
+
+        #tuchka-calc .tc-btn {
+            height: 52px;
+            font-size: 16px;
+            line-height: 52px;
+        }
+    }
+</style>
+
+<div id="tuchka-calc">
+    <div class="tc-header">
+        Оформите заявку прямо сейчас и получите решение в <span id="tcTime">--:--</span>
     </div>
 
-    <script>
-        const amountSlider = document.getElementById('amountSlider');
-        const daysSlider = document.getElementById('daysSlider');
-        const amountDisplay = document.getElementById('amountDisplay');
-        const daysDisplay = document.getElementById('daysDisplay');
-        const totalDisplay = document.getElementById('totalDisplay');
-        const dailyDisplay = document.getElementById('dailyDisplay');
-        const decisionTime = document.getElementById('decisionTime');
+    <div class="tc-row">
+        <div class="tc-row-top">
+            <span class="tc-label">Сумма займа</span>
+            <span class="tc-val" id="tcAmt">68 000 ₽</span>
+        </div>
+        <input type="range" id="tcAmtR" min="1000" max="100000" step="1000" value="68000">
+        <div class="tc-minmax">
+            <span>1 000 ₽</span>
+            <span>100 000 ₽</span>
+        </div>
+    </div>
 
-        function formatNumber(num) {
-            return num.toLocaleString('ru-RU');
-        }
+    <div class="tc-row">
+        <div class="tc-row-top">
+            <span class="tc-label">Срок займа</span>
+            <span class="tc-val" id="tcDays">74 дней</span>
+        </div>
+        <input type="range" id="tcDaysR" min="1" max="90" step="1" value="74">
+        <div class="tc-minmax">
+            <span>1 дн.</span>
+            <span>90 дн.</span>
+        </div>
+    </div>
 
-        function getDaysWord(days) {
-            if (days === 1) return 'день';
-            if (days >= 2 && days <= 4) return 'дня';
-            return 'дней';
-        }
+    <div class="tc-cards">
+        <div class="tc-card">
+            <div class="tc-card-lbl">К возврату</div>
+            <div class="tc-card-val" id="tcTotal">68 000 ₽</div>
+        </div>
+        <div class="tc-card">
+            <div class="tc-card-lbl">Платёж в день</div>
+            <div class="tc-card-val" id="tcDaily">919 ₽</div>
+        </div>
+    </div>
 
-        function getDecisionTime() {
-            const now = new Date();
-            now.setMinutes(now.getMinutes() + 10);
-            const h = String(now.getHours()).padStart(2, '0');
-            const m = String(now.getMinutes()).padStart(2, '0');
-            return `${h}:${m}`;
-        }
+    <button class="tc-btn" id="tcSubmit">Оформить заявку</button>
+</div>
 
-        function updateSlider(slider) {
-            const min = parseFloat(slider.min);
-            const max = parseFloat(slider.max);
-            const val = parseFloat(slider.value);
-            const pct = ((val - min) / (max - min)) * 100;
-            slider.style.setProperty('--value', pct + '%');
-        }
+<script>
+(function(){
+    var aR = document.getElementById('tcAmtR');
+    var dR = document.getElementById('tcDaysR');
+    var aD = document.getElementById('tcAmt');
+    var dD = document.getElementById('tcDays');
+    var tD = document.getElementById('tcTotal');
+    var pD = document.getElementById('tcDaily');
+    var tT = document.getElementById('tcTime');
+    var btn = document.getElementById('tcSubmit');
 
-        function calculate() {
-            const amount = parseInt(amountSlider.value);
-            const days = parseInt(daysSlider.value);
+    function fmt(n){return n.toLocaleString('ru-RU');}
+    function dw(d){return d===1?'день':d>=2&&d<=4?'дня':'дней';}
 
-            amountDisplay.textContent = `${formatNumber(amount)} ₽`;
-            daysDisplay.textContent = `${days} ${getDaysWord(days)}`;
+    function upd(s){
+        var mn=parseFloat(s.min),mx=parseFloat(s.max),v=parseFloat(s.value);
+        s.style.setProperty('--tc-pct',((v-mn)/(mx-mn))*100+'%');
+    }
 
-            let ratePerDay = 0;
-            if (days > 7) ratePerDay = 0.0052;
+    function calc(){
+        var a=parseInt(aR.value), d=parseInt(dR.value);
+        aD.textContent=fmt(a)+' \u20BD';
+        dD.textContent=d+' '+dw(d);
+        var r=d>7?0.0052:0;
+        var t=Math.round(a*(1+r*d));
+        var daily=d>0?Math.round(t/d):0;
+        tD.textContent=fmt(t)+' \u20BD';
+        pD.textContent=fmt(daily)+' \u20BD';
+        upd(aR); upd(dR);
+    }
 
-            const total = Math.round(amount * (1 + ratePerDay * days));
-            const daily = days > 0 ? Math.round(total / days) : 0;
+    var now=new Date(); now.setMinutes(now.getMinutes()+10);
+    tT.textContent=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
 
-            totalDisplay.textContent = `${formatNumber(total)} ₽`;
-            dailyDisplay.textContent = `${formatNumber(daily)} ₽`;
+    btn.addEventListener('click', function(){
+        window.open('https://tuchkafinance.ru/applicationform','_blank');
+    });
 
-            updateSlider(amountSlider);
-            updateSlider(daysSlider);
-        }
+    aR.addEventListener('input', calc);
+    dR.addEventListener('input', calc);
+    calc();
+})();
+</script>
 
-        function handleSubmit() {
-            window.open('https://tuchkafinance.ru/applicationform', '_blank');
-        }
-
-        decisionTime.textContent = getDecisionTime();
-        amountSlider.addEventListener('input', calculate);
-        daysSlider.addEventListener('input', calculate);
-        calculate();
-    </script>
 </body>
 </html>
