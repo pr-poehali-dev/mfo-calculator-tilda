@@ -209,7 +209,7 @@
                 <span class="slider-label">Сумма займа</span>
                 <span class="slider-value" id="amountDisplay">10 000 ₽</span>
             </div>
-            <input type="range" id="amountSlider" min="1000" max="100000" step="1000" value="10000">
+            <input type="range" id="amountSlider" min="1000" max="100000" step="1000" value="68000">
             <div class="range-labels">
                 <span>1 000 ₽</span>
                 <span>100 000 ₽</span>
@@ -221,7 +221,7 @@
                 <span class="slider-label">Срок займа</span>
                 <span class="slider-value" id="daysDisplay">7 дней</span>
             </div>
-            <input type="range" id="daysSlider" min="1" max="90" step="1" value="7">
+            <input type="range" id="daysSlider" min="1" max="90" step="1" value="74">
             <div class="range-labels">
                 <span>1 дн.</span>
                 <span>90 дн.</span>
@@ -298,9 +298,7 @@
         }
 
         function handleSubmit() {
-            const amount = parseInt(amountSlider.value);
-            const days = parseInt(daysSlider.value);
-            alert(`Заявка на займ:\nСумма: ${formatNumber(amount)} ₽\nСрок: ${days} ${getDaysWord(days)}`);
+            window.open('https://tuchkafinance.ru/applicationform', '_blank');
         }
 
         decisionTime.textContent = getDecisionTime();
