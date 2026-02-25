@@ -84,17 +84,19 @@
         background: #e8293a;
         cursor: grab;
         box-shadow: 0 2px 8px rgba(232, 41, 58, 0.4);
-        transition: transform 0.15s;
+        transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s;
         border: 3px solid #fff;
     }
 
     #tuchka-calc input[type="range"]::-webkit-slider-thumb:hover {
-        transform: scale(1.12);
+        transform: scale(1.2);
+        box-shadow: 0 4px 16px rgba(232, 41, 58, 0.5);
     }
 
     #tuchka-calc input[type="range"]::-webkit-slider-thumb:active {
         cursor: grabbing;
-        transform: scale(1.05);
+        transform: scale(1.35);
+        box-shadow: 0 0 0 8px rgba(232, 41, 58, 0.15), 0 4px 16px rgba(232, 41, 58, 0.5);
     }
 
     #tuchka-calc input[type="range"]::-moz-range-thumb {
@@ -105,7 +107,18 @@
         cursor: grab;
         border: 3px solid #fff;
         box-shadow: 0 2px 8px rgba(232, 41, 58, 0.4);
-        transition: transform 0.15s;
+        transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s;
+    }
+
+    #tuchka-calc input[type="range"]::-moz-range-thumb:hover {
+        transform: scale(1.2);
+        box-shadow: 0 4px 16px rgba(232, 41, 58, 0.5);
+    }
+
+    #tuchka-calc input[type="range"]::-moz-range-thumb:active {
+        cursor: grabbing;
+        transform: scale(1.35);
+        box-shadow: 0 0 0 8px rgba(232, 41, 58, 0.15), 0 4px 16px rgba(232, 41, 58, 0.5);
     }
 
     #tuchka-calc input[type="range"]::-moz-range-track {
@@ -132,6 +145,12 @@
         background: #fff0f1;
         border-radius: 14px;
         padding: 14px 16px;
+        transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s;
+    }
+
+    #tuchka-calc .tc-card.tc-pulse {
+        transform: scale(1.04);
+        box-shadow: 0 4px 20px rgba(232, 41, 58, 0.15);
     }
 
     #tuchka-calc .tc-card-lbl {
@@ -144,6 +163,12 @@
         font-size: 20px;
         font-weight: 700;
         color: #e8293a;
+        transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        display: inline-block;
+    }
+
+    #tuchka-calc .tc-card-val.tc-bump {
+        transform: scale(1.1);
     }
 
     #tuchka-calc .tc-btn {
@@ -267,6 +292,24 @@
         s.style.setProperty('--tc-pct',((v-mn)/(mx-mn))*100+'%');
     }
 
+    var prevT=0, prevP=0;
+    var cards=document.querySelectorAll('#tuchka-calc .tc-card');
+
+    function pulse(){
+        for(var i=0;i<cards.length;i++){
+            cards[i].classList.add('tc-pulse');
+        }
+        tD.classList.add('tc-bump');
+        pD.classList.add('tc-bump');
+        setTimeout(function(){
+            for(var i=0;i<cards.length;i++){
+                cards[i].classList.remove('tc-pulse');
+            }
+            tD.classList.remove('tc-bump');
+            pD.classList.remove('tc-bump');
+        },200);
+    }
+
     function calc(){
         var a=parseInt(aR.value), d=parseInt(dR.value);
         aD.textContent=fmt(a)+' \u20BD';
@@ -274,6 +317,7 @@
         var r=d>7?0.0052:0;
         var t=Math.round(a*(1+r*d));
         var daily=d>0?Math.round(t/d):0;
+        if(t!==prevT||daily!==prevP){ pulse(); prevT=t; prevP=daily; }
         tD.textContent=fmt(t)+' \u20BD';
         pD.textContent=fmt(daily)+' \u20BD';
         upd(aR); upd(dR);
