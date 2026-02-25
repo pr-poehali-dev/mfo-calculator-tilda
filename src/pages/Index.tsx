@@ -33,7 +33,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4" style={{ background: '#1a1a1a' }}>
-      <div className="w-full max-w-[420px] bg-white rounded-3xl p-7 shadow-2xl">
+      <div className="w-full max-w-[360px] bg-white rounded-3xl p-5 sm:p-6 shadow-2xl">
         {/* Header */}
         <h2 className="text-center font-bold text-[#1a1a1a] leading-snug mb-7" style={{ fontSize: '18px' }}>
           Оформите заявку прямо сейчас и получите решение в {decisionTime || '--:--'}
