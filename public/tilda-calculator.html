@@ -16,12 +16,12 @@
     }
 
     #tuchka-calc {
-        max-width: 440px;
+        max-width: 100%;
         width: 100%;
         margin: 0 auto;
         background: #1a1a2e;
         border-radius: 28px;
-        padding: 32px 28px;
+        padding: 36px 44px;
         box-shadow: 0 32px 80px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.06);
         display: block;
         box-sizing: border-box;
@@ -270,13 +270,19 @@
         font-weight: 500;
     }
 
+    @media (min-width: 769px) {
+        #tuchka-calc {
+            border-radius: 28px;
+        }
+    }
+
     @media (max-width: 480px) {
         #tuchka-calc {
             padding: 24px 20px;
             border-radius: 22px;
-            margin-left: 12px;
-            margin-right: 12px;
-            width: calc(100% - 24px);
+            margin-left: 0;
+            margin-right: 0;
+            width: 100%;
         }
 
         #tuchka-calc .tc-header {
