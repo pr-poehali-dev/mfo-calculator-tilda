@@ -6,17 +6,17 @@
     <title>Калькулятор займа</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
             padding: 1rem;
-            background: transparent;
+            background: #0f0f1a;
             display: flex;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
         }
     </style>
 </head>
@@ -31,207 +31,280 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
         line-height: normal;
     }
 
     #tuchka-calc {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        max-width: 420px;
+        max-width: 440px;
         width: 100%;
         margin: 0 auto;
-        background: #ffffff;
-        border-radius: 24px;
-        padding: 28px 24px;
-        box-shadow: 0 24px 64px rgba(0,0,0,0.12);
+        background: #1a1a2e;
+        border-radius: 28px;
+        padding: 32px 28px;
+        box-shadow: 0 32px 80px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.06);
         display: block;
         box-sizing: border-box;
         overflow: hidden;
+        position: relative;
+    }
+
+    #tuchka-calc::before {
+        content: '';
+        position: absolute;
+        top: -60px;
+        right: -60px;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(232,41,58,0.18) 0%, transparent 70%);
+        pointer-events: none;
+    }
+
+    #tuchka-calc .tc-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: rgba(232,41,58,0.15);
+        border: 1px solid rgba(232,41,58,0.3);
+        border-radius: 20px;
+        padding: 5px 12px;
+        font-size: 12px;
+        font-weight: 600;
+        color: #e8293a;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        margin-bottom: 16px;
+    }
+
+    #tuchka-calc .tc-badge-dot {
+        width: 6px;
+        height: 6px;
+        background: #e8293a;
+        border-radius: 50%;
+        animation: tc-blink 1.4s ease-in-out infinite;
+    }
+
+    @keyframes tc-blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.2; }
     }
 
     #tuchka-calc .tc-header {
-        font-size: 18px;
-        font-weight: 700;
-        color: #1a1a1a;
-        text-align: center;
-        line-height: 1.4;
+        font-size: 20px;
+        font-weight: 800;
+        color: #ffffff;
+        text-align: left;
+        line-height: 1.35;
         margin-bottom: 28px;
     }
 
+    #tuchka-calc .tc-header span {
+        color: #e8293a;
+    }
+
     #tuchka-calc .tc-row {
-        margin-bottom: 24px;
+        margin-bottom: 22px;
     }
 
     #tuchka-calc .tc-row-top {
         display: flex;
         justify-content: space-between;
-        align-items: center;
-        margin-bottom: 12px;
+        align-items: baseline;
+        margin-bottom: 14px;
     }
 
     #tuchka-calc .tc-label {
-        font-size: 15px;
-        color: #888;
-        font-weight: 400;
+        font-size: 13px;
+        color: rgba(255,255,255,0.45);
+        font-weight: 500;
+        letter-spacing: 0.4px;
+        text-transform: uppercase;
     }
 
     #tuchka-calc .tc-val {
-        font-size: 22px;
-        font-weight: 700;
-        color: #e8293a;
+        font-size: 26px;
+        font-weight: 800;
+        color: #ffffff;
+        letter-spacing: -0.5px;
     }
 
     #tuchka-calc input[type="range"] {
         -webkit-appearance: none;
         appearance: none;
         width: 100%;
-        height: 6px;
-        border-radius: 3px;
+        height: 4px;
+        border-radius: 2px;
         outline: none;
         cursor: pointer;
-        background: linear-gradient(to right, #e8293a 0%, #e8293a var(--tc-pct, 67%), #e0e0e0 var(--tc-pct, 67%), #e0e0e0 100%);
-        margin: 0 0 8px 0;
+        background: linear-gradient(to right, #e8293a 0%, #e8293a var(--tc-pct, 67%), rgba(255,255,255,0.1) var(--tc-pct, 67%), rgba(255,255,255,0.1) 100%);
+        margin: 0 0 10px 0;
         padding: 0;
         border: none;
     }
 
     @keyframes tc-pulse-ring {
-        0% { box-shadow: 0 0 0 0 rgba(232, 41, 58, 0.4), 0 2px 8px rgba(232, 41, 58, 0.3); }
-        70% { box-shadow: 0 0 0 10px rgba(232, 41, 58, 0), 0 2px 8px rgba(232, 41, 58, 0.3); }
-        100% { box-shadow: 0 0 0 0 rgba(232, 41, 58, 0), 0 2px 8px rgba(232, 41, 58, 0.3); }
+        0%   { box-shadow: 0 0 0 0 rgba(232,41,58,0.5), 0 2px 10px rgba(232,41,58,0.4); }
+        70%  { box-shadow: 0 0 0 10px rgba(232,41,58,0), 0 2px 10px rgba(232,41,58,0.2); }
+        100% { box-shadow: 0 0 0 0 rgba(232,41,58,0), 0 2px 10px rgba(232,41,58,0.2); }
     }
 
     #tuchka-calc input[type="range"]::-webkit-slider-thumb {
         -webkit-appearance: none;
         appearance: none;
-        width: 26px;
-        height: 26px;
+        width: 22px;
+        height: 22px;
         border-radius: 50%;
         background: #e8293a;
         cursor: grab;
-        border: 3px solid #fff;
+        border: 3px solid #1a1a2e;
         animation: tc-pulse-ring 2s ease-out infinite;
     }
 
     #tuchka-calc input[type="range"]::-webkit-slider-thumb:active {
         cursor: grabbing;
         animation: none;
-        box-shadow: 0 0 0 10px rgba(232, 41, 58, 0.15), 0 4px 16px rgba(232, 41, 58, 0.4);
-        transform: scale(1.15);
+        box-shadow: 0 0 0 10px rgba(232,41,58,0.18), 0 4px 16px rgba(232,41,58,0.5);
+        transform: scale(1.2);
     }
 
     #tuchka-calc input[type="range"]::-moz-range-thumb {
-        width: 26px;
-        height: 26px;
+        width: 22px;
+        height: 22px;
         border-radius: 50%;
         background: #e8293a;
         cursor: grab;
-        border: 3px solid #fff;
+        border: 3px solid #1a1a2e;
         animation: tc-pulse-ring 2s ease-out infinite;
     }
 
     #tuchka-calc input[type="range"]::-moz-range-thumb:active {
         cursor: grabbing;
         animation: none;
-        box-shadow: 0 0 0 10px rgba(232, 41, 58, 0.15), 0 4px 16px rgba(232, 41, 58, 0.4);
-        transform: scale(1.15);
+        box-shadow: 0 0 0 10px rgba(232,41,58,0.18), 0 4px 16px rgba(232,41,58,0.5);
+        transform: scale(1.2);
     }
 
     #tuchka-calc input[type="range"]::-moz-range-track {
-        height: 6px;
-        border-radius: 3px;
+        height: 4px;
+        border-radius: 2px;
         background: transparent;
     }
 
     #tuchka-calc .tc-minmax {
         display: flex;
         justify-content: space-between;
-        font-size: 13px;
-        color: #aaa;
+        font-size: 12px;
+        color: rgba(255,255,255,0.25);
+        font-weight: 500;
+    }
+
+    #tuchka-calc .tc-divider {
+        height: 1px;
+        background: rgba(255,255,255,0.07);
+        margin: 4px 0 22px;
     }
 
     #tuchka-calc .tc-cards {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 10px;
-        margin-bottom: 16px;
+        margin-bottom: 20px;
     }
 
     #tuchka-calc .tc-card {
-        background: #fff0f1;
-        border-radius: 14px;
-        padding: 14px 16px;
-        transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s;
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 16px;
+        padding: 16px;
+        transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), border-color 0.3s;
     }
 
     #tuchka-calc .tc-card.tc-pulse {
         transform: scale(1.04);
-        box-shadow: 0 4px 20px rgba(232, 41, 58, 0.15);
+        border-color: rgba(232,41,58,0.3);
     }
 
     #tuchka-calc .tc-card-lbl {
-        font-size: 13px;
-        color: #888;
-        margin-bottom: 6px;
+        font-size: 11px;
+        color: rgba(255,255,255,0.35);
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        font-weight: 600;
+        margin-bottom: 8px;
     }
 
     #tuchka-calc .tc-card-val {
         font-size: 20px;
-        font-weight: 700;
-        color: #e8293a;
-        transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        font-weight: 800;
+        color: #ffffff;
+        transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
         display: inline-block;
+        letter-spacing: -0.3px;
     }
 
     #tuchka-calc .tc-card-val.tc-bump {
-        transform: scale(1.1);
+        transform: scale(1.08);
+    }
+
+    #tuchka-calc .tc-card:first-child .tc-card-val {
+        color: #ff6b7a;
     }
 
     #tuchka-calc .tc-btn {
         all: unset;
         display: block;
         width: 100%;
-        height: 56px;
-        font-size: 17px;
+        height: 58px;
+        font-size: 16px;
         font-weight: 700;
         color: #fff;
-        background: #e8293a;
+        background: linear-gradient(135deg, #e8293a 0%, #c81f2e 100%);
         border: none;
-        border-radius: 14px;
+        border-radius: 16px;
         cursor: pointer;
-        transition: all 0.2s;
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
         letter-spacing: 0.3px;
         text-align: center;
-        line-height: 56px;
+        line-height: 58px;
         box-sizing: border-box;
+        box-shadow: 0 8px 24px rgba(232,41,58,0.4);
+        transition: transform 0.2s, box-shadow 0.2s;
     }
 
     #tuchka-calc .tc-btn:hover {
-        background: #c81f2e;
-        transform: translateY(-1px);
-        box-shadow: 0 8px 24px rgba(232, 41, 58, 0.35);
+        transform: translateY(-2px);
+        box-shadow: 0 12px 32px rgba(232,41,58,0.5);
     }
 
     #tuchka-calc .tc-btn:active {
         transform: translateY(0);
+        box-shadow: 0 4px 12px rgba(232,41,58,0.3);
+    }
+
+    #tuchka-calc .tc-footer {
+        text-align: center;
+        font-size: 11px;
+        color: rgba(255,255,255,0.2);
+        margin-top: 14px;
+        font-weight: 500;
     }
 
     @media (max-width: 480px) {
         #tuchka-calc {
-            padding: 22px 18px;
-            border-radius: 20px;
+            padding: 24px 20px;
+            border-radius: 22px;
             margin-left: 12px;
             margin-right: 12px;
             width: calc(100% - 24px);
         }
 
         #tuchka-calc .tc-header {
-            font-size: 16px;
+            font-size: 17px;
         }
 
         #tuchka-calc .tc-val {
-            font-size: 19px;
+            font-size: 22px;
         }
 
         #tuchka-calc .tc-card-val {
@@ -240,15 +313,20 @@
 
         #tuchka-calc .tc-btn {
             height: 52px;
-            font-size: 16px;
+            font-size: 15px;
             line-height: 52px;
         }
     }
 </style>
 
 <div id="tuchka-calc">
+    <div class="tc-badge">
+        <span class="tc-badge-dot"></span>
+        Онлайн одобрение
+    </div>
+
     <div class="tc-header">
-        Оформите заявку прямо сейчас и получите решение в <span id="tcTime">--:--</span>
+        Оформите заявку и получите решение в <span id="tcTime">--:--</span>
     </div>
 
     <div class="tc-row">
@@ -266,14 +344,16 @@
     <div class="tc-row">
         <div class="tc-row-top">
             <span class="tc-label">Срок займа</span>
-            <span class="tc-val" id="tcDays">74 дней</span>
+            <span class="tc-val" id="tcDays">74 дня</span>
         </div>
         <input type="range" id="tcDaysR" min="1" max="90" step="1" value="74">
         <div class="tc-minmax">
-            <span>1 дн.</span>
-            <span>90 дн.</span>
+            <span>1 день</span>
+            <span>90 дней</span>
         </div>
     </div>
+
+    <div class="tc-divider"></div>
 
     <div class="tc-cards">
         <div class="tc-card">
@@ -286,7 +366,9 @@
         </div>
     </div>
 
-    <button class="tc-btn" id="tcSubmit">Оформить заявку</button>
+    <button class="tc-btn" id="tcSubmit">Оформить заявку →</button>
+
+    <div class="tc-footer">Без скрытых комиссий · Решение за 2 минуты</div>
 </div>
 
 <script>
